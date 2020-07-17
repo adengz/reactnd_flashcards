@@ -3,7 +3,6 @@ import { View, StatusBar, Platform, Text } from 'react-native';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -24,31 +23,36 @@ const GeneralStatusBar = () => {
 }
 
 const TabNavigator = () => {
-  const ios = Platform.OS === 'ios';
-  const Tab = ios ? createBottomTabNavigator() : createMaterialTopTabNavigator();
+  const Tab = createBottomTabNavigator();
 
   const navigatorProps = {
     tabBarOptions: {
-      activeTintColor: ios ? purple : white,
+      activeTintColor: purple,
       style: {
-        backgroundColor: ios ? white : purple,
+        backgroundColor: white,
       }
     }
   };
+
+  const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
   const tabs = {
     DeckList: {
       name: 'Deck List',
       component: DeckList,
       options: {
-        tabBarIcon: ({ color, size }) => <Ionicons name="ios-list-box" size={size} color={color} />
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name={`${iconPrefix}-list-box`} size={size} color={color}/>
+        )
       }
     },
     NewDeck: {
       name: 'New Deck',
       component: NewDeck,
       options: {
-        tabBarIcon: ({ color, size }) => <Ionicons name="ios-create" size={size} color={color} />
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name={`${iconPrefix}-create`} size={size} color={color} />
+        )
       }
     }
   };
