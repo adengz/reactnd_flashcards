@@ -5,6 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import { purple, white } from './utils/colors';
@@ -61,11 +64,13 @@ const TabNavigator = () => {
 
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
-      <GeneralStatusBar />
-      <NavigationContainer>
-        <TabNavigator />
-      </NavigationContainer>
-    </View>
+    <Provider store={createStore(reducer)}>
+      <View style={{ flex: 1 }}>
+        <GeneralStatusBar />
+        <NavigationContainer>
+          <TabNavigator />
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 }
