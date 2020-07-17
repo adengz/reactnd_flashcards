@@ -16,8 +16,8 @@ export default function DeckCover({ id, scale=1 }) {
       textAlign: 'center'
     },
     stats: {
-      marginBottom: 6 * scale,
-      fontSize: 12 * scale,
+      marginBottom: 9 * scale,
+      fontSize: 15 * scale,
       color: gray,
       textAlign: 'center'
     }
