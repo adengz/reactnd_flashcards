@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StatusBar, Platform, Text } from 'react-native';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { createStore } from 'redux';
@@ -38,7 +39,7 @@ const TabNavigator = () => {
 
   const tabs = {
     DeckList: {
-      name: 'Deck List',
+      name: 'My Decks',
       component: DeckList,
       options: {
         tabBarIcon: ({ color, size }) => (
@@ -66,13 +67,23 @@ const TabNavigator = () => {
   );
 }
 
+const StackNavigator = () => {
+  const Stack = createStackNavigator();
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={TabNavigator} />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <Provider store={createStore(reducer)}>
       <View style={{ flex: 1 }}>
         <GeneralStatusBar />
         <NavigationContainer>
-          <TabNavigator />
+          <StackNavigator />
         </NavigationContainer>
       </View>
     </Provider>
