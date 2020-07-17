@@ -44,7 +44,10 @@ export default function Deck() {
     <View style={sharedStyles.container}>
       <DeckCover id={id} scale={2} />
       <View style={sharedStyles.buttonGroup}>
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity
+          style={styles.addBtn}
+          onPress={() => navigation.navigate('NewCard', { id })}
+        >
           <Text style={sharedStyles.buttonText}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.quizBtn}>

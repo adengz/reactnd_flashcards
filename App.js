@@ -11,6 +11,7 @@ import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
+import NewCard from './components/NewCard';
 import { purple, white } from './utils/colors';
 
 const GeneralStatusBar = () => {
@@ -27,7 +28,7 @@ const GeneralStatusBar = () => {
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
 
-  const navigatorProps = {
+  const props = {
     tabBarOptions: {
       activeTintColor: purple,
       style: {
@@ -38,7 +39,7 @@ const TabNavigator = () => {
 
   const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
-  const tabs = {
+  const screens = {
     DeckList: {
       name: 'My Decks',
       component: DeckList,
@@ -60,9 +61,9 @@ const TabNavigator = () => {
   };
 
   return (
-    <Tab.Navigator {...navigatorProps}>
-      {Object.entries(tabs).map(([key, props]) => (
-        <Tab.Screen key={key} {...props} />
+    <Tab.Navigator {...props}>
+      {Object.entries(screens).map(([k, v]) => (
+        <Tab.Screen key={k} {...v} />
       ))}
     </Tab.Navigator>
   );
@@ -71,14 +72,29 @@ const TabNavigator = () => {
 const StackNavigator = () => {
   const Stack = createStackNavigator();
 
+  const screens = {
+    Home: {
+      name: 'Home',
+      component: TabNavigator,
+      options: { title: '' }
+    },
+    Deck: {
+      name: 'Deck',
+      component: Deck,
+      options: ({ route }) => ({ title: route.params.title })
+    },
+    NewCard: {
+      name: 'NewCard',
+      component: NewCard,
+      options: { title: 'New Card' }
+    }
+  }
+
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={TabNavigator} />
-      <Stack.Screen
-        name="Deck"
-        component={Deck}
-        options={({ route }) => ({ title: route.params.title })}
-      />
+      {Object.entries(screens).map(([k, v]) => (
+        <Stack.Screen key={k} {...v} />
+      ))}
     </Stack.Navigator>
   );
 }
