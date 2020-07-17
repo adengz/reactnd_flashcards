@@ -1,4 +1,4 @@
-import { ADD_DECK } from '../actions';
+import { ADD_DECK, DELETE_DECK } from '../actions';
 
 const defaultState = {
   ec2ire7ksi49n7zxchwg7e: {
@@ -38,6 +38,13 @@ export default function decks(state=defaultState, action) {
           questions: []
         }
       };
+    case DELETE_DECK:
+      return Object.assign(
+        {},
+        ...Object.entries(state)
+          .filter(([k]) => k !== action.uid)
+          .map(([k, v]) => ({[k]: v}))
+      );
     default: 
       return state;
   }
