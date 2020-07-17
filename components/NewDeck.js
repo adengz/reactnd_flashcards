@@ -1,14 +1,32 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+} from 'react-native';
+import SubmitBtn from './SubmitBtn';
+import sharedStyles from '../utils/stylesheet';
 
-class NewDeck extends Component {
-  render() {
-    return (
-      <View>
-        <Text>New Deck</Text>
-      </View>
-    );
-  }
+const NewDeck = () => {
+  const [title, setTitle] = useState('');
+
+  return (
+    <KeyboardAvoidingView 
+      style={sharedStyles.container}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+    >
+      <Text style={{ fontSize: 40, textAlign: 'center' }}>
+        Enter the title of{'\n'}your new deck
+      </Text>
+      <TextInput
+        style={sharedStyles.textInput}
+        onChangeText={title => setTitle(title)}
+        value={title}
+      />
+      <SubmitBtn />
+    </KeyboardAvoidingView>
+  );
 }
 
 export default NewDeck;
