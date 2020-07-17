@@ -4,29 +4,65 @@ import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
-import { purple } from './utils/colors';
+import { purple, white } from './utils/colors';
 
-const GeneralStatusBar = ({ backgroundColor, ...props }) => (
-  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-    <StatusBar backgroundColor={backgroundColor} {...props} />
-  </View>
-);
+const GeneralStatusBar = () => {
+  const backgroundColor = purple;
+  const statusBarProps = { backgroundColor, barStyle: 'light-content' };
 
-const Tab = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialTopTabNavigator();
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar {...statusBarProps} />
+    </View>
+  );
+}
 
-const TabNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Deck List" component={DeckList} />
-    <Tab.Screen name="New Deck" component={NewDeck} />
-  </Tab.Navigator>
-);
+const TabNavigator = () => {
+  const ios = Platform.OS === 'ios';
+  const Tab = ios ? createBottomTabNavigator() : createMaterialTopTabNavigator();
+
+  const navigatorProps = {
+    tabBarOptions: {
+      activeTintColor: ios ? purple : white,
+      style: {
+        backgroundColor: ios ? white : purple,
+      }
+    }
+  };
+
+  const tabs = {
+    DeckList: {
+      name: 'Deck List',
+      component: DeckList,
+      options: {
+        tabBarIcon: ({ color, size }) => <Ionicons name="ios-list-box" size={size} color={color} />
+      }
+    },
+    NewDeck: {
+      name: 'New Deck',
+      component: NewDeck,
+      options: {
+        tabBarIcon: ({ color, size }) => <Ionicons name="ios-create" size={size} color={color} />
+      }
+    }
+  };
+
+  return (
+    <Tab.Navigator {...navigatorProps}>
+      {Object.entries(tabs).map(([key, props]) => (
+        <Tab.Screen key={key} {...props} />
+      ))}
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <View style={{ flex: 1 }}>
-      <GeneralStatusBar backgroundColor={purple} barStyle="light-content" />
+      <GeneralStatusBar />
       <NavigationContainer>
         <TabNavigator />
       </NavigationContainer>
