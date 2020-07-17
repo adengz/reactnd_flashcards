@@ -15,6 +15,15 @@ export default function DeckList() {
   const decks = useSelector(state => state);
   const navigation = useNavigation();
 
+  const styles = StyleSheet.create({
+    deckBtn: {
+      paddingBottom: 10,
+      alignSelf: 'stretch',
+      borderBottomWidth: 1,
+      borderColor: gray
+    }
+  });
+
   return (
     <View style={sharedStyles.container}>
       <FlatList
@@ -31,14 +40,3 @@ export default function DeckList() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  deckBtn: {
-    paddingLeft: 60,
-    paddingRight: 60,
-    paddingBottom: 10,
-    alignSelf: 'stretch',
-    borderBottomWidth: 1,
-    borderColor: gray
-  }
-});

@@ -3,10 +3,25 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { gray } from '../utils/colors';
 
-export default function DeckCover({ id }) {
+export default function DeckCover({ id, scale=1 }) {
   const deck = useSelector(state => state[id]);
   const { title } = deck;
   const count = deck.questions.length;
+
+  const styles = StyleSheet.create({
+    title: {
+      marginTop: 12 * scale,
+      marginBottom: 12 * scale,
+      fontSize: 24 * scale,
+      textAlign: 'center'
+    },
+    stats: {
+      marginBottom: 6 * scale,
+      fontSize: 12 * scale,
+      color: gray,
+      textAlign: 'center'
+    }
+  });
 
   return (
     <View>
@@ -19,18 +34,3 @@ export default function DeckCover({ id }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 40,
-    textAlign: 'center'
-  },
-  stats: {
-    marginBottom: 10,
-    fontSize: 20,
-    color: gray,
-    textAlign: 'center'
-  }
-});
