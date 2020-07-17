@@ -5,26 +5,28 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import { useStore } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import DeckCover from './DeckCover';
 import sharedStyles from '../utils/stylesheet';
 import { gray } from '../utils/colors';
 
 export default function DeckList() {
-  const decks = useStore().getState();
+  const decks = useSelector(state => state);
+  const navigation = useNavigation();
 
   return (
     <View style={sharedStyles.container}>
       <FlatList
         data={Object.values(decks)}
-        renderItem={({ item }) => {
-          console.log(item);
-          return (
-            <TouchableOpacity style={styles.deckBtn}>
-              <DeckCover id={item.id} />
-            </TouchableOpacity>
-          );
-        }}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.deckBtn}
+            onPress={() => navigation.navigate('Deck', { id: item.id })}
+          >
+            <DeckCover id={item.id} />
+          </TouchableOpacity>
+        )}
       />
     </View>
   );

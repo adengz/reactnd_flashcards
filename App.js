@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
+import Deck from './components/Deck';
 import { purple, white } from './utils/colors';
 
 const GeneralStatusBar = () => {
@@ -71,8 +72,9 @@ const StackNavigator = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={TabNavigator} />
+      <Stack.Screen name="Deck" component={Deck} />
     </Stack.Navigator>
   );
 }
