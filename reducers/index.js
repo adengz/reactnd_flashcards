@@ -1,4 +1,4 @@
-import { ADD_DECK, DELETE_DECK } from '../actions';
+import { ADD_DECK, DELETE_DECK, ADD_CARD } from '../actions';
 
 const defaultState = {
   ec2ire7ksi49n7zxchwg7e: {
@@ -45,6 +45,17 @@ export default function decks(state=defaultState, action) {
           .filter(([k]) => k !== action.uid)
           .map(([k, v]) => ({[k]: v}))
       );
+    case ADD_CARD:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          questions: state[action.uid].questions.concat([{
+            question: action.question,
+            answer: action.answer
+          }])
+        }
+      };
     default: 
       return state;
   }
