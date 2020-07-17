@@ -45,7 +45,7 @@ export default function NewDeck() {
         onChangeText={title => setTitle(title)}
         value={title}
       />
-      <SubmitBtn onPress={submit}/>
+      <SubmitBtn onPress={submit} disabled={title === ''} />
     </KeyboardAvoidingView>
   );
 }
