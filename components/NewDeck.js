@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addDeck } from '../actions';
 import SubmitBtn from './SubmitBtn';
@@ -12,6 +13,7 @@ import sharedStyles from '../utils/stylesheet';
 
 export default function NewDeck() {
   const [title, setTitle] = useState('');
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const submit = () => {
@@ -24,8 +26,10 @@ export default function NewDeck() {
     // reset title
     setTitle('');
 
-    // update DB
     // redirect to created deck
+    navigation.navigate('Deck', { id: uid, title });
+
+    // update DB
   }
 
   return (
