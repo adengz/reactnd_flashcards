@@ -9,7 +9,7 @@ const sharedStyles = StyleSheet.create({
   },
   textInput: {
     height: 50,
-    margin: 50,
+    margin: 20,
     alignSelf: 'stretch',
     borderColor: gray,
     borderWidth: 1,
