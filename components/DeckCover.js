@@ -5,6 +5,11 @@ import { gray } from '../utils/colors';
 
 export default function DeckCover({ id, scale=1 }) {
   const deck = useSelector(state => state[id]);
+
+  if (typeof deck === 'undefined') {
+    return null;
+  }
+
   const { title } = deck;
   const count = deck.questions.length;
 
