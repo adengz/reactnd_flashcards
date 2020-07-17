@@ -31,7 +31,9 @@ export default function DeckList() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.deckBtn}
-            onPress={() => navigation.navigate('Deck', { id: item.id })}
+            onPress={() =>
+              navigation.navigate('Deck', { id: item.id, title: item.title })
+            }
           >
             <DeckCover id={item.id} />
           </TouchableOpacity>

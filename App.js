@@ -74,7 +74,11 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={TabNavigator} />
-      <Stack.Screen name="Deck" component={Deck} />
+      <Stack.Screen
+        name="Deck"
+        component={Deck}
+        options={({ route }) => ({ title: route.params.title })}
+      />
     </Stack.Navigator>
   );
 }
