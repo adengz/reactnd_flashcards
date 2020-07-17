@@ -18,11 +18,19 @@ const sharedStyles = StyleSheet.create({
   },
   button: {
     height: 50,
-    margin: 20,
-    paddingLeft: 40,
-    paddingRight: 40,
+    width: '60%',
+    borderWidth: 1,
     borderRadius: 5,
+    margin: 5,
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonText: {
+    fontSize: 30
+  },
+  buttonGroup: {
+    marginTop: 100,
+    alignSelf: 'stretch',
     alignItems: 'center'
   }
 });

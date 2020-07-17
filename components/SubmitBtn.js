@@ -1,18 +1,27 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import sharedStyles from '../utils/stylesheet';
 import { purple, white } from '../utils/colors';
 
-const SubmitBtn = ({ onPress }) => (
-  <TouchableOpacity
-    style={[
-      sharedStyles.button,
-      { borderColor: purple, backgroundColor: purple }
-    ]}
-    onPress={onPress}
-  >
-    <Text style={{ fontSize: 30, color: white }}>Submit</Text>
-  </TouchableOpacity>
-);
+export default function SubmitBtn({ onPress }) {
+  const styles = StyleSheet.create({
+    submitBtn: {
+      ...sharedStyles.button,
+      borderColor: purple,
+      backgroundColor: purple,
+      margin: 20
+    },
+    submitBtnText: {
+      ...sharedStyles.buttonText,
+      color: white
+    }
+  });
 
-export default SubmitBtn;
+  return (
+    <TouchableOpacity style={styles.submitBtn} onPress={onPress}>
+      <Text style={styles.submitBtnText}>
+        Submit
+      </Text>
+    </TouchableOpacity>
+  );
+}
