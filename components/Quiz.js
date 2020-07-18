@@ -8,7 +8,7 @@ import TextBtn from './TextBtn';
 import sharedStyles from '../utils/stylesheet';
 import { purple, white, green, red } from '../utils/colors';
 
-const Result = ({ right, count }) => {
+const Result = ({ right, count, startOver }) => {
   const percent = Math.round(right / count * 100);
   const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ const Result = ({ right, count }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.resetBtn}
-          onPress={() => console.log('start over')}
+          onPress={startOver}
         >
           <Text style={styles.btnText}>Start Over</Text>
         </TouchableOpacity>
@@ -38,8 +38,17 @@ const Result = ({ right, count }) => {
 class Quiz extends Component {
   constructor(props) {
     super(props);
-    this.props.questions.sort((a, b) => 0.5 - Math.random());
+    this.shulffleCards();
     this.state = { count: 0, right: 0, showAnswer: false };
+  }
+
+  shulffleCards = () => {
+    this.props.questions.sort((a, b) => 0.5 - Math.random());
+  }
+
+  startOver = () => {
+    this.shulffleCards();
+    this.setState({ count: 0, right: 0, showAnswer: false });
   }
 
   showNext = (correct) => {
@@ -62,7 +71,7 @@ class Quiz extends Component {
     const { questions } = this.props;
     const { length } = questions;
     if (count === length) {
-      return <Result {...this.state} />;
+      return <Result {...this.state} startOver={this.startOver} />;
     }
 
     const { question, answer } = questions[count];
