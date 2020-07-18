@@ -12,6 +12,7 @@ import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import NewCard from './components/NewCard';
+import Quiz from './components/Quiz';
 import { purple, white } from './utils/colors';
 
 const GeneralStatusBar = () => {
@@ -87,8 +88,13 @@ const StackNavigator = () => {
       name: 'NewCard',
       component: NewCard,
       options: { title: 'New Card' }
+    },
+    Quiz: {
+      name: 'Quiz',
+      component: Quiz,
+      options: { title: 'Quiz' }
     }
-  }
+  };
 
   return (
     <Stack.Navigator initialRouteName="Home">

@@ -50,7 +50,10 @@ export default function Deck() {
         >
           <Text style={sharedStyles.buttonText}>Add Card</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.quizBtn}>
+        <TouchableOpacity
+          style={styles.quizBtn}
+          onPress={() => navigation.navigate('Quiz', { id })}
+        >
           <Text style={styles.quizBtnText}>Start Quiz</Text>
         </TouchableOpacity>
         <TextBtn text="Delete Deck" color={red} onPress={remove}/>
