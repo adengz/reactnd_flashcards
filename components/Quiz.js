@@ -36,9 +36,11 @@ const Result = ({ right, count }) => {
 }
 
 class Quiz extends Component {
-  state = { count: 0, right: 0, showAnswer: false };
-
-  // shuffle questions using life cycle methods
+  constructor(props) {
+    super(props);
+    this.props.questions.sort((a, b) => 0.5 - Math.random());
+    this.state = { count: 0, right: 0, showAnswer: false };
+  }
 
   showNext = (correct) => {
     this.setState(currState => ({
