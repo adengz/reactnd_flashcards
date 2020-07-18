@@ -7,6 +7,11 @@ const sharedStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  title: {
+    margin: 40,
+    fontSize: 40,
+    textAlign: 'center'
+  },
   textInput: {
     height: 50,
     margin: 20,

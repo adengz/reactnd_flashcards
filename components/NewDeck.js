@@ -37,7 +37,7 @@ export default function NewDeck() {
       style={sharedStyles.container}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <Text style={{ fontSize: 40, textAlign: 'center' }}>
+      <Text style={sharedStyles.title}>
         Enter the title of{'\n'}your new deck
       </Text>
       <TextInput
