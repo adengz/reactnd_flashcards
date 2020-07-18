@@ -1,25 +1,21 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-// import sharedStyles from '../utils/stylesheet';
-// import { purple, white } from '../utils/colors';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default function TextBtn({ text, color, onPress }) {
-  // const styles = StyleSheet.create({
-  //   submitBtn: {
-  //     ...sharedStyles.button,
-  //     borderColor: purple,
-  //     backgroundColor: purple,
-  //     margin: 20
-  //   },
-  //   submitBtnText: {
-  //     ...sharedStyles.buttonText,
-  //     color: white
-  //   }
-  // });
+  const styles = StyleSheet.create({
+    btn: {
+      margin: 5
+    },
+    text: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color
+    }
+  });
 
   return (
-    <TouchableOpacity onPress={onPress} style={{ margin: 5 }}>
-      <Text style={{ color, fontSize: 20 }}>
+    <TouchableOpacity onPress={onPress} style={styles.btn}>
+      <Text style={styles.text}>
         {text}
       </Text>
     </TouchableOpacity>
