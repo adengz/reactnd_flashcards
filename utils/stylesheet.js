@@ -8,7 +8,7 @@ const sharedStyles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    margin: 40,
+    margin: 20,
     fontSize: 40,
     textAlign: 'center'
   },
@@ -34,7 +34,6 @@ const sharedStyles = StyleSheet.create({
     fontSize: 30
   },
   buttonGroup: {
-    marginTop: 100,
     alignSelf: 'stretch',
     alignItems: 'center'
   }
