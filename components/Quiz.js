@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
+import CardFlip from 'react-native-card-flip';
 import DonutChart from './DonutChart';
 import TextBtn from './TextBtn';
 import sharedStyles from '../utils/stylesheet';
@@ -51,6 +52,7 @@ class Quiz extends Component {
     this.setState(currState => ({
       showAnswer: !currState.showAnswer
     }));
+    this.card.flip();
   }
 
   render() {
@@ -65,17 +67,21 @@ class Quiz extends Component {
 
     return (
       <View style={sharedStyles.container}>
-        <Text style={sharedStyles.title}>
+        <Text style={styles.stats}>
           {length - count} / {length}
         </Text>
-        <View>
-          <Text>{question}</Text>
-          <Text>{answer}</Text>
-        </View>
+        <CardFlip style={styles.cardContainer} ref={card => (this.card = card)}>
+          <View style={[styles.card, styles.cardFront]}>
+            <Text style={styles.label}>{question}</Text>
+          </View>
+          <View style={[styles.card, styles.cardBack]}>
+            <Text style={styles.label}>{answer}</Text>
+          </View>
+        </CardFlip>
         <View style={sharedStyles.buttonGroup}>
           <TextBtn
             color={purple}
-            text={`Show ${showAnswer ? 'Answer' : 'Question'}`}
+            text={`Show ${showAnswer ? 'Question' : 'Answer'}`}
             onPress={this.flipCard}
           />
           <TouchableOpacity
@@ -131,5 +137,29 @@ const styles = StyleSheet.create({
   btnText: {
     ...sharedStyles.buttonText,
     color: white
-  }
+  },
+  cardContainer: {
+    width: 320,
+    height: 320,
+    margin: 20,
+  },
+  card: {
+    width: 320,
+    height: 320,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardFront: {
+    backgroundColor: '#FE474C',
+  },
+  cardBack: {
+    backgroundColor: '#FEB12C',
+  },
+  label: {
+    margin: 10,
+    fontSize: 30,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+  },
 });
