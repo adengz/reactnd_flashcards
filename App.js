@@ -63,7 +63,7 @@ const StackNavigator = () => {
     Home: {
       name: 'Home',
       component: TabNavigator,
-      options: { title: '⚡Flashcards' }
+      options: { title: 'Flash⚡Cards' }
     },
     Deck: {
       name: 'Deck',
