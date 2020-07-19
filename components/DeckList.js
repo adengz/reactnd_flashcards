@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import CardFlip from 'react-native-card-flip';
 import DeckCover from './DeckCover';
@@ -15,6 +15,13 @@ class DeckList extends Component {
         ...Styles.cardContainer,
         height: 128,
         margin: 5,
+      },
+      msgContainer: {
+        alignItems: 'center',
+      },
+      emptyListMsg: {
+        fontSize: 15,
+        textAlign: 'center',
       },
     });
 
@@ -43,7 +50,13 @@ class DeckList extends Component {
               </TouchableOpacity>
               <View style={styles.card}></View>
             </CardFlip>
-          )} 
+          )}
+          ListEmptyComponent={
+            <View style={styles.msgContainer}>
+              <Text style={styles.emptyListMsg}>You don't have any decks now.</Text>
+              <Text style={styles.emptyListMsg}>Create one and it will show up here.</Text>
+            </View>
+          }
         />
       </View>
     );
