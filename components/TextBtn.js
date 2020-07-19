@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { black } from '../styles/palette'
 
-export default function TextBtn({ text, color, onPress }) {
+export default function TextBtn({ text, color=black, onPress }) {
   const styles = StyleSheet.create({
     btn: {
       margin: 5,

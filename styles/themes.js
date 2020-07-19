@@ -9,7 +9,6 @@ export const Triton = {
   dark: false,
   colors: {
     primary: '#006A96',
-    secondary: '#FFCD00',
     ...lightColors
   }
 };
@@ -18,7 +17,6 @@ export const THU = {
   dark: false,
   colors: {
     primary: '#660874',
-    secondary: '#FFFFFF',
     ...lightColors
   }
 };

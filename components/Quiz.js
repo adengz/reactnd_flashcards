@@ -6,7 +6,7 @@ import CardFlip from 'react-native-card-flip';
 import DonutChart from './DonutChart';
 import TextBtn from './TextBtn';
 import Styles from '../styles/stylesheet';
-import { black, white, green, red } from '../styles/palette';
+import { black, green, red, colorMap } from '../styles/palette';
 
 const Result = ({ right, count, startOver }) => {
   const percent = Math.round(right / count * 100);
@@ -101,7 +101,7 @@ class Quiz extends Component {
 
   render() {
     const { count, showAnswer } = this.state;
-    const { questions, theme, navigation } = this.props;
+    const { questions, navigation } = this.props;
     const { length } = questions;
     if (length === 0) {
       alert('You cannot start quiz with no cards! Add some cards first.');
@@ -113,7 +113,7 @@ class Quiz extends Component {
 
     const { question, answer } = questions[count];
 
-    const { primary, secondary } = theme.colors;
+    const colorIndex = count * 2 % colorMap.length;
     const styles = StyleSheet.create({
       progress: {
         fontSize: 24,
@@ -135,22 +135,16 @@ class Quiz extends Component {
         margin: 20,
       },
       cardFront: {
-        backgroundColor: primary,
+        backgroundColor: colorMap[colorIndex],
       },
       cardBack: {
-        backgroundColor: secondary,
+        backgroundColor: colorMap[colorIndex + 1],
       },
       label: {
         margin: 10,
         fontSize: 30,
         backgroundColor: 'transparent',
         textAlign: 'center',
-      },
-      labelFront: {
-        color: white,
-      },
-      labelBack: {
-        color: black,
       },
     });
 
@@ -161,15 +155,14 @@ class Quiz extends Component {
         </Text>
         <CardFlip style={styles.cardContainer} ref={card => this.card = card}>
           <View style={[Styles.card, styles.cardFront]}>
-            <Text style={[styles.label, styles.labelFront]}>{question}</Text>
+            <Text style={styles.label}>{question}</Text>
           </View>
           <View style={[Styles.card, styles.cardBack]}>
-            <Text style={[styles.label, styles.labelBack]}>{answer}</Text>
+            <Text style={styles.label}>{answer}</Text>
           </View>
         </CardFlip>
         <View style={Styles.buttonGroup}>
           <TextBtn
-            color={primary}
             text={`Show ${showAnswer ? 'Question' : 'Answer'}`}
             onPress={this.flipCard}
           />
@@ -197,9 +190,4 @@ const mapStateToProps = (state, { route }) => {
   return { questions };
 }
 
-const ConnectedQuiz = connect(mapStateToProps)(Quiz);
-
-export default function(props) {
-  const theme = useTheme();
-  return <ConnectedQuiz {...props} theme={theme} />;
-}
+export default connect(mapStateToProps)(Quiz);
