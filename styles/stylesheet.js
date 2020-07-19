@@ -4,6 +4,7 @@ import { gray, white } from './palette';
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
