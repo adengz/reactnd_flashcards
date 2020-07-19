@@ -1,17 +1,12 @@
-import { ADD_DECK, DELETE_DECK, ADD_CARD } from '../actions';
-import { colorMap } from '../styles/palette';
+import { RECEIVE_DATA, ADD_DECK, DELETE_DECK, ADD_CARD } from '../actions';
 
-const defaultState = {};
-for (let i = 0;i < colorMap.length;i++) {
-  defaultState[i] = {
-    id: i,
-    title: colorMap[i],
-    questions: []
-  };
-}
-
-export default function decks(state=defaultState, action) {
+export default function decks(state={}, action) {
   switch(action.type) {
+    case RECEIVE_DATA:
+      return {
+        ...state,
+        ...action.data
+      };
     case ADD_DECK:
       return {
         ...state,

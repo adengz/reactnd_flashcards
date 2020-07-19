@@ -1,6 +1,12 @@
+export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const ADD_DECK = 'ADD_DECK';
 export const DELETE_DECK = 'DELETE_DECK';
 export const ADD_CARD = 'ADD_CARD';
+
+export const receiveData = (data) => ({
+  type: RECEIVE_DATA,
+  data
+});
 
 export const addDeck = (uid, title) => ({
   type: ADD_DECK,
