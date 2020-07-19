@@ -81,7 +81,10 @@ class Quiz extends Component {
       }));
     }
 
-    if (this.state.showAnswer) {
+    const { length } = this.props.questions;
+    const { showAnswer, count } = this.state;
+
+    if (showAnswer && count < length - 1) {
       this.card.flip();
       setTimeout(updateState, 300);
     } else {
