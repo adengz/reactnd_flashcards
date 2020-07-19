@@ -13,10 +13,10 @@ import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import NewCard from './components/NewCard';
 import Quiz from './components/Quiz';
-import { purple, white } from './utils/colors';
+import { TritonLight, TritonDark } from './styles/themes';
 
 const GeneralStatusBar = () => {
-  const backgroundColor = purple;
+  const backgroundColor = '#182B49';
   const statusBarProps = { backgroundColor, barStyle: 'light-content' };
 
   return (
@@ -28,15 +28,6 @@ const GeneralStatusBar = () => {
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
-
-  const props = {
-    tabBarOptions: {
-      activeTintColor: purple,
-      style: {
-        backgroundColor: white,
-      }
-    }
-  };
 
   const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
@@ -62,7 +53,7 @@ const TabNavigator = () => {
   };
 
   return (
-    <Tab.Navigator {...props}>
+    <Tab.Navigator>
       {Object.entries(screens).map(([k, v]) => (
         <Tab.Screen key={k} {...v} />
       ))}
@@ -110,7 +101,7 @@ export default function App() {
     <Provider store={createStore(reducer)}>
       <View style={{ flex: 1 }}>
         <GeneralStatusBar />
-        <NavigationContainer>
+        <NavigationContainer theme={TritonDark}>
           <StackNavigator />
         </NavigationContainer>
       </View>
