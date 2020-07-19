@@ -11,30 +11,30 @@ export const fetchDataAsync = () => {
     .then((results) => JSON.parse(results));
 }
 
-const updateDeckAsync = (uid, newData) => {
+const updateDeckAsync = (id, newData) => {
   return AsyncStorage.mergeItem(DATA_STORAGE_KEY, JSON.stringify({
-    [uid]: newData
+    [id]: newData
   }));
 }
 
-export const addDeckAsync = (uid, title) => {
-  const newData = { id: uid, title, questions: [] };
-  return updateDeckAsync(uid, newData);
+export const addDeckAsync = (id, title, timestamp) => {
+  const newData = { id, title, timestamp, questions: [] };
+  return updateDeckAsync(id, newData);
 }
 
-export const deleteDeckAsync = (uid) => {
+export const deleteDeckAsync = (id) => {
   return fetchDataAsync()
     .then((data) => {
-      delete data[uid];
+      delete data[id];
       AsyncStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(data));
     });
 }
 
-export const addCardAsync = (uid, question, answer) => {
+export const addCardAsync = (id, question, answer) => {
   return fetchDataAsync()
     .then((data) => {
-      const newData = data[uid];
+      const newData = data[id];
       newData.questions.push({ question, answer });
-      return updateDeckAsync(uid, newData);
+      return updateDeckAsync(id, newData);
     });
 }

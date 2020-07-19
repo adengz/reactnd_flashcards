@@ -10,9 +10,10 @@ export default function decks(state={}, action) {
     case ADD_DECK:
       return {
         ...state,
-        [action.uid]: {
-          id: action.uid,
+        [action.id]: {
+          id: action.id,
           title: action.title,
+          timestamp: action.timestamp,
           questions: []
         }
       };
@@ -20,15 +21,15 @@ export default function decks(state={}, action) {
       return Object.assign(
         {},
         ...Object.entries(state)
-          .filter(([k]) => k !== action.uid)
+          .filter(([k]) => k !== action.id)
           .map(([k, v]) => ({[k]: v}))
       );
     case ADD_CARD:
       return {
         ...state,
-        [action.uid]: {
-          ...state[action.uid],
-          questions: state[action.uid].questions.concat([{
+        [action.id]: {
+          ...state[action.id],
+          questions: state[action.id].questions.concat([{
             question: action.question,
             answer: action.answer
           }])

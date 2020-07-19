@@ -8,20 +8,21 @@ export const receiveData = (data) => ({
   data
 });
 
-export const addDeck = (uid, title) => ({
+export const addDeck = (id, title, timestamp) => ({
   type: ADD_DECK,
-  uid,
-  title
+  id,
+  title,
+  timestamp
 });
 
-export const deleteDeck = (uid) => ({
+export const deleteDeck = (id) => ({
   type: DELETE_DECK,
-  uid
+  id
 });
 
-export const addCard = (uid, question, answer) => ({
+export const addCard = (id, question, answer) => ({
   type: ADD_CARD,
-  uid,
+  id,
   question,
   answer
 });

@@ -18,16 +18,17 @@ export default function NewDeck() {
   const dispatch = useDispatch();
 
   const submit = () => {
-    let uid = Math.random().toString(36).substring(2, 15);
-    uid += Math.random().toString(36).substring(2, 15);
+    let id = Math.random().toString(36).substring(2, 15);
+    id += Math.random().toString(36).substring(2, 15);
+    const timestamp = Date.now();
 
-    addDeckAsync(uid, title);
+    addDeckAsync(id, title, timestamp);
 
-    dispatch(addDeck(uid, title));
+    dispatch(addDeck(id, title, timestamp));
 
     setTitle('');
-    
-    navigation.navigate('Deck', { id: uid, title });
+
+    navigation.navigate('Deck', { id, title });
   }
 
   return (
