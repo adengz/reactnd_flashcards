@@ -161,7 +161,7 @@ class Quiz extends Component {
         <Text style={styles.progress}>
           {length - count} / {length}
         </Text>
-        <CardFlip style={styles.cardContainer} ref={card => (this.card = card)}>
+        <CardFlip style={styles.cardContainer} ref={card => this.card = card}>
           <View style={[styles.card, styles.cardFront]}>
             <Text style={[styles.label, styles.labelFront]}>{question}</Text>
           </View>

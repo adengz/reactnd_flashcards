@@ -6,3 +6,16 @@ export const black = '#000000';
 
 export const green = '#53A451';
 export const red = '#CC444A';
+
+export const colorMap = [
+  'lightblue',
+  'lightcoral',
+  'lightcyan',
+  'lightgoldenrodyellow',
+  'lightgreen',
+  'lightpink',
+  'lightsalmon',
+  'lightskyblue',
+  'lightsteelblue',
+  'lightyellow',
+];
