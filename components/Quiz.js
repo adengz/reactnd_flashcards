@@ -1,34 +1,55 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import CardFlip from 'react-native-card-flip';
 import DonutChart from './DonutChart';
 import TextBtn from './TextBtn';
-import sharedStyles from '../utils/stylesheet';
-import { purple, white, green, red } from '../utils/colors';
+import Styles from '../styles/stylesheet';
+import { black, white, green, red } from '../styles/palette';
 
 const Result = ({ right, count, startOver }) => {
   const percent = Math.round(right / count * 100);
   const navigation = useNavigation();
 
+  const themeColor = useTheme().colors.primary;
+  const styles = StyleSheet.create({
+    stats: {
+      fontSize: 24,
+      textAlign: 'center',
+    },
+    backBtn: {
+      ...Styles.button,
+      borderColor: themeColor,
+    },
+    backBtnText: {
+      ...Styles.buttonText,
+      color: black,
+    },
+    resetBtn: {
+      ...Styles.button,
+      borderColor: themeColor,
+      backgroundColor: themeColor,
+    }
+  });
+
   return (
-    <View style={sharedStyles.container}>
-      <Text style={sharedStyles.title}>Quiz Finished!</Text>
+    <View style={Styles.container}>
+      <Text style={Styles.title}>Quiz Finished!</Text>
       <Text style={styles.stats}>{right} / {count} correct</Text>
       <DonutChart percent={percent} />
-      <View style={sharedStyles.buttonGroup}>
+      <View style={Styles.buttonGroup}>
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Text style={sharedStyles.buttonText}>Back to Deck</Text>
+          <Text style={styles.backBtnText}>Back to Deck</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.resetBtn}
           onPress={startOver}
         >
-          <Text style={styles.btnText}>Start Over</Text>
+          <Text style={Styles.buttonText}>Start Over</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -68,7 +89,7 @@ class Quiz extends Component {
 
   render() {
     const { count, showAnswer } = this.state;
-    const { questions } = this.props;
+    const { questions, theme } = this.props;
     const { length } = questions;
     if (count === length) {
       return <Result {...this.state} startOver={this.startOver} />;
@@ -76,22 +97,69 @@ class Quiz extends Component {
 
     const { question, answer } = questions[count];
 
+    const { primary, secondary } = theme.colors;
+    const styles = StyleSheet.create({
+      progress: {
+        fontSize: 24,
+        textAlign: 'center',
+      },
+      rightBtn: {
+        ...Styles.button,
+        borderColor: green,
+        backgroundColor: green,
+      },
+      wrongBtn: {
+        ...Styles.button,
+        borderColor: red,
+        backgroundColor: red,
+      },
+      cardContainer: {
+        width: 320,
+        height: 320,
+        margin: 20,
+      },
+      card: {
+        width: 320,
+        height: 320,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      cardFront: {
+        backgroundColor: primary,
+      },
+      cardBack: {
+        backgroundColor: secondary,
+      },
+      label: {
+        margin: 10,
+        fontSize: 30,
+        backgroundColor: 'transparent',
+      },
+      labelFront: {
+        color: white,
+      },
+      labelBack: {
+        color: black,
+      },
+    });
+
     return (
-      <View style={sharedStyles.container}>
-        <Text style={styles.stats}>
+      <View style={Styles.container}>
+        <Text style={styles.progress}>
           {length - count} / {length}
         </Text>
         <CardFlip style={styles.cardContainer} ref={card => (this.card = card)}>
           <View style={[styles.card, styles.cardFront]}>
-            <Text style={styles.label}>{question}</Text>
+            <Text style={[styles.label, styles.labelFront]}>{question}</Text>
           </View>
           <View style={[styles.card, styles.cardBack]}>
-            <Text style={styles.label}>{answer}</Text>
+            <Text style={[styles.label, styles.labelBack]}>{answer}</Text>
           </View>
         </CardFlip>
-        <View style={sharedStyles.buttonGroup}>
+        <View style={Styles.buttonGroup}>
           <TextBtn
-            color={purple}
+            color={primary}
             text={`Show ${showAnswer ? 'Question' : 'Answer'}`}
             onPress={this.flipCard}
           />
@@ -99,13 +167,13 @@ class Quiz extends Component {
             style={styles.rightBtn}
             onPress={() => this.showNext(true)}
           >
-            <Text style={styles.btnText}>Correct</Text>
+            <Text style={Styles.buttonText}>Correct</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.wrongBtn}
             onPress={() => this.showNext(false)}
           >
-            <Text style={styles.btnText}>Incorrect</Text>
+            <Text style={Styles.buttonText}>Incorrect</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -119,58 +187,9 @@ const mapStateToProps = (state, { route }) => {
   return { questions };
 }
 
-export default connect(mapStateToProps)(Quiz);
+const ConnectedQuiz = connect(mapStateToProps)(Quiz);
 
-const styles = StyleSheet.create({
-  stats: {
-    fontSize: 24,
-    textAlign: 'center'
-  },
-  backBtn: {
-    ...sharedStyles.button,
-    borderColor: purple
-  },
-  resetBtn: {
-    ...sharedStyles.button,
-    borderColor: purple,
-    backgroundColor: purple
-  },
-  rightBtn: {
-    ...sharedStyles.button,
-    borderColor: green,
-    backgroundColor: green
-  },
-  wrongBtn: {
-    ...sharedStyles.button,
-    borderColor: red,
-    backgroundColor: red
-  },
-  btnText: {
-    ...sharedStyles.buttonText,
-    color: white
-  },
-  cardContainer: {
-    width: 320,
-    height: 320,
-    margin: 20,
-  },
-  card: {
-    width: 320,
-    height: 320,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardFront: {
-    backgroundColor: '#FE474C',
-  },
-  cardBack: {
-    backgroundColor: '#FEB12C',
-  },
-  label: {
-    margin: 10,
-    fontSize: 30,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
-  },
-});
+export default function(props) {
+  const theme = useTheme();
+  return <ConnectedQuiz {...props} theme={theme} />;
+}
