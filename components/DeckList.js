@@ -8,8 +8,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import DeckCover from './DeckCover';
-import sharedStyles from '../utils/stylesheet';
-import { gray } from '../utils/colors';
+import Styles from '../styles/stylesheet';
+import { gray } from '../styles/palette';
 
 export default function DeckList() {
   const decks = useSelector(state => state);
@@ -20,12 +20,12 @@ export default function DeckList() {
       paddingBottom: 10,
       alignSelf: 'stretch',
       borderBottomWidth: 1,
-      borderColor: gray
-    }
+      borderColor: gray,
+    },
   });
 
   return (
-    <View style={sharedStyles.container}>
+    <View style={Styles.container}>
       <FlatList
         data={Object.values(decks)}
         renderItem={({ item }) => (
