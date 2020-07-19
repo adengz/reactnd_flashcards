@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
+import Settings from './components/Settings';
 import Deck from './components/Deck';
 import NewCard from './components/NewCard';
 import Quiz from './components/Quiz';
@@ -32,7 +33,7 @@ const TabNavigator = () => {
       component: DeckList,
       options: {
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name={`${iconPrefix}-list-box`} size={size} color={color}/>
+          <Ionicons name={`${iconPrefix}-albums`} size={size} color={color}/>
         )
       }
     },
@@ -41,10 +42,19 @@ const TabNavigator = () => {
       component: NewDeck,
       options: {
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name={`${iconPrefix}-create`} size={size} color={color} />
+          <Ionicons name={`${iconPrefix}-add-circle`} size={size} color={color} />
         )
       }
-    }
+    },
+    Settings: {
+      name: 'Settings',
+      component: Settings,
+      options: {
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name={`${iconPrefix}-settings`} size={size} color={color} />
+        )
+      }
+    },
   };
 
   return (
@@ -79,7 +89,7 @@ const StackNavigator = () => {
       name: 'Quiz',
       component: Quiz,
       options: { title: 'Quiz' }
-    }
+    },
   };
 
   return (
