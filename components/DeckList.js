@@ -49,7 +49,7 @@ class DeckList extends Component {
     return (
       <View style={Styles.container}>
         <FlatList
-          data={Object.values(decks)}
+          data={Object.values(decks).sort((a, b) => a.timestamp - b.timestamp)}
           renderItem={({ item, index }) => (
             <CardFlip
               style={styles.cardContainer}
