@@ -101,9 +101,13 @@ class Quiz extends Component {
 
   render() {
     const { count, showAnswer } = this.state;
-    const { questions, theme } = this.props;
+    const { questions, theme, navigation } = this.props;
     const { length } = questions;
-    if (count === length) {
+    if (length === 0) {
+      alert('You cannot start quiz with no cards! Add some cards first.');
+      navigation.goBack();
+      return null;
+    } else if (count === length) {
       return <Result {...this.state} startOver={this.startOver} />;
     }
 
