@@ -73,11 +73,20 @@ class Quiz extends Component {
   }
 
   showNext = (correct) => {
-    this.setState(currState => ({
-      count: currState.count + 1,
-      right: currState.right + (correct ? 1 : 0),
-      showAnswer: false
-    }));
+    const updateState = () => {
+      this.setState(currState => ({
+        count: currState.count + 1,
+        right: currState.right + (correct ? 1 : 0),
+        showAnswer: false
+      }));
+    }
+
+    if (this.state.showAnswer) {
+      this.card.flip();
+      setTimeout(updateState, 300);
+    } else {
+      updateState();
+    }
   }
 
   flipCard = () => {
