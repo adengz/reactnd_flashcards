@@ -14,8 +14,8 @@ export const colorMap = [
   'lightgoldenrodyellow',
   'lightgreen',
   'lightpink',
-  'lightsalmon',
   'lightskyblue',
+  'lightsalmon',
   'lightsteelblue',
   'lightyellow',
 ];

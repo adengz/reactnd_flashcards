@@ -126,16 +126,9 @@ class Quiz extends Component {
         backgroundColor: red,
       },
       cardContainer: {
-        width: 320,
+        ...Styles.cardContainer,
         height: 320,
         margin: 20,
-      },
-      card: {
-        width: 320,
-        height: 320,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
       },
       cardFront: {
         backgroundColor: primary,
@@ -147,6 +140,7 @@ class Quiz extends Component {
         margin: 10,
         fontSize: 30,
         backgroundColor: 'transparent',
+        textAlign: 'center',
       },
       labelFront: {
         color: white,
@@ -162,10 +156,10 @@ class Quiz extends Component {
           {length - count} / {length}
         </Text>
         <CardFlip style={styles.cardContainer} ref={card => this.card = card}>
-          <View style={[styles.card, styles.cardFront]}>
+          <View style={[Styles.card, styles.cardFront]}>
             <Text style={[styles.label, styles.labelFront]}>{question}</Text>
           </View>
-          <View style={[styles.card, styles.cardBack]}>
+          <View style={[Styles.card, styles.cardBack]}>
             <Text style={[styles.label, styles.labelBack]}>{answer}</Text>
           </View>
         </CardFlip>

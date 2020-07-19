@@ -12,13 +12,9 @@ class DeckList extends Component {
 
     const styles = StyleSheet.create({
       cardContainer: {
-        width: 320,
-        height: 160,
-      },
-      card: {
-        width: 320,
-        height: 160,
-        borderRadius: 5,
+        ...Styles.cardContainer,
+        height: 128,
+        margin: 5,
       },
     });
 
@@ -34,7 +30,7 @@ class DeckList extends Component {
               <TouchableOpacity
                 activeOpacity={1}
                 style={[
-                  styles.card,
+                  Styles.card,
                   { backgroundColor: colorMap[index % colorMap.length] }
                 ]}
                 onPress={() => {
