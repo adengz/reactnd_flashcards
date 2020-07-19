@@ -30,7 +30,7 @@ const Result = ({ right, count, startOver }) => {
       ...Styles.button,
       borderColor: themeColor,
       backgroundColor: themeColor,
-    }
+    },
   });
 
   return (

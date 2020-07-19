@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 export default function TextBtn({ text, color, onPress }) {
   const styles = StyleSheet.create({
     btn: {
-      margin: 5
+      margin: 5,
     },
     text: {
       fontSize: 20,
