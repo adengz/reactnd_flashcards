@@ -8,7 +8,7 @@ export const resetDataAsync = () => {
 
 export const fetchDataAsync = () => {
   return AsyncStorage.getItem(DATA_STORAGE_KEY)
-    .then((results) => JSON.parse);
+    .then((results) => JSON.parse(results));
 }
 
 const updateDeckAsync = (uid, newData) => {

@@ -9,6 +9,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addCard } from '../actions';
+import { addCardAsync } from '../utils/data';
 import SubmitBtn from './SubmitBtn';
 import Styles from '../styles/stylesheet';
 
@@ -21,17 +22,14 @@ export default function NewCard() {
   const { id } = route.params;
 
   const submit = () => {
-    // update redux
+    addCardAsync(id, question, answer);
+
     dispatch(addCard(id, question, answer));
 
-    // reset question and answer
     setQuestion('');
     setAnswer('');
-
-    // redirect to created deck
+    
     navigation.goBack();
-
-    // update DB
   }
 
   const styles = StyleSheet.create({

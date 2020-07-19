@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import { useRoute, useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { deleteDeck } from '../actions';
+import { deleteDeckAsync } from '../utils/data';
 import DeckCover from './DeckCover';
 import TextBtn from './TextBtn';
 import Styles from '../styles/stylesheet';
@@ -15,13 +16,11 @@ export default function Deck() {
   const dispatch = useDispatch();
 
   const remove = () => {
-    // update redux
+    deleteDeckAsync(id);
+
     dispatch(deleteDeck(id));
     
-    // go home
     navigation.navigate('Home');
-
-    // update DB
   }
 
   const themeColor = useTheme().colors.primary;

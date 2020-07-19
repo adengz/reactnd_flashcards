@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { AppLoading } from 'expo';
+import { receiveData } from '../actions';
+import { fetchDataAsync, resetDataAsync } from '../utils/data';
 import CardFlip from 'react-native-card-flip';
 import DeckCover from './DeckCover';
 import Styles from '../styles/stylesheet';
 import { colorMap } from '../styles/palette';
 
 class DeckList extends Component {
+  state = { ready: false };
+
+  componentDidMount() {
+    fetchDataAsync()
+      .then((cache) => {
+        if (cache === null) {
+          resetDataAsync();
+          cache = {};
+        }
+        this.props.dispatch(receiveData(cache));
+      })
+      .then(() => this.setState({ ready: true }));
+  }
+
   render() {
+    if (!this.state.ready) {
+      return <AppLoading />;
+    }
+
     const { decks } = this.props;
 
     const styles = StyleSheet.create({
