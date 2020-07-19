@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { gray } from '../utils/colors';
+import { darkGray } from '../styles/palette';
 
-export default function DeckCover({ id, scale=1 }) {
+export default function DeckCover({ id, scale=1, style={} }) {
   const deck = useSelector(state => state[id]);
 
   if (typeof deck === 'undefined') {
@@ -15,21 +15,20 @@ export default function DeckCover({ id, scale=1 }) {
 
   const styles = StyleSheet.create({
     title: {
-      marginTop: 12 * scale,
-      marginBottom: 12 * scale,
+      marginVertical: 12 * scale,
       fontSize: 24 * scale,
-      textAlign: 'center'
+      textAlign: 'center',
     },
     stats: {
       marginBottom: 9 * scale,
       fontSize: 15 * scale,
-      color: gray,
-      textAlign: 'center'
-    }
+      color: darkGray,
+      textAlign: 'center',
+    },
   });
 
   return (
-    <View>
+    <View style={style}>
       <Text style={styles.title}>
         {title}
       </Text>

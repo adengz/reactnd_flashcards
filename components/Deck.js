@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import { useRoute, useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { deleteDeck } from '../actions';
 import DeckCover from './DeckCover';
 import TextBtn from './TextBtn';
-import sharedStyles from '../utils/stylesheet';
-import { purple, white, red } from '../utils/colors';
+import Styles from '../styles/stylesheet';
+import { black, red } from '../styles/palette';
 
 export default function Deck() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { id, title } = route.params;
+  const { id } = route.params;
   const dispatch = useDispatch();
 
   const remove = () => {
@@ -24,37 +24,41 @@ export default function Deck() {
     // update DB
   }
 
+  const themeColor = useTheme().colors.primary;
   const styles = StyleSheet.create({
+    cover: {
+      marginVertical: 100,
+    },
     addBtn: {
-      ...sharedStyles.button,
-      borderColor: purple
+      ...Styles.button,
+      borderColor: themeColor,
+    },
+    addBtnText: {
+      ...Styles.buttonText,
+      color: black,
     },
     quizBtn: {
-      ...sharedStyles.button,
-      borderColor: purple,
-      backgroundColor: purple
+      ...Styles.button,
+      borderColor: themeColor,
+      backgroundColor: themeColor,
     },
-    quizBtnText: {
-      ...sharedStyles.buttonText,
-      color: white
-    }
   });
 
   return (
-    <View style={sharedStyles.container}>
-      <DeckCover id={id} scale={2} />
-      <View style={sharedStyles.buttonGroup}>
+    <View style={Styles.container}>
+      <DeckCover style={styles.cover} id={id} scale={2} />
+      <View style={Styles.buttonGroup}>
         <TouchableOpacity
           style={styles.addBtn}
           onPress={() => navigation.navigate('NewCard', { id })}
         >
-          <Text style={sharedStyles.buttonText}>Add Card</Text>
+          <Text style={styles.addBtnText}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.quizBtn}
           onPress={() => navigation.navigate('Quiz', { id })}
         >
-          <Text style={styles.quizBtnText}>Start Quiz</Text>
+          <Text style={Styles.buttonText}>Start Quiz</Text>
         </TouchableOpacity>
         <TextBtn text="Delete Deck" color={red} onPress={remove}/>
       </View>

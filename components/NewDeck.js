@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addDeck } from '../actions';
 import SubmitBtn from './SubmitBtn';
-import sharedStyles from '../utils/stylesheet';
+import Styles from '../styles/stylesheet';
 
 export default function NewDeck() {
   const [title, setTitle] = useState('');
@@ -34,14 +34,14 @@ export default function NewDeck() {
 
   return (
     <KeyboardAvoidingView 
-      style={sharedStyles.container}
+      style={Styles.container}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <Text style={sharedStyles.title}>
+      <Text style={Styles.title}>
         Enter the title of{'\n'}your new deck
       </Text>
       <TextInput
-        style={sharedStyles.textInput}
+        style={Styles.textInput}
         onChangeText={title => setTitle(title)}
         value={title}
       />

@@ -10,7 +10,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addCard } from '../actions';
 import SubmitBtn from './SubmitBtn';
-import sharedStyles from '../utils/stylesheet';
+import Styles from '../styles/stylesheet';
 
 export default function NewCard() {
   const [question, setQuestion] = useState('');
@@ -38,24 +38,24 @@ export default function NewCard() {
     label: {
       fontSize: 25,
       alignSelf: 'flex-start',
-      marginLeft: 15
-    }
+      marginLeft: 15,
+    },
   });
 
   return (
     <KeyboardAvoidingView 
-      style={sharedStyles.container}
+      style={Styles.container}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <Text style={styles.label}>Question</Text>
       <TextInput
-        style={sharedStyles.textInput}
+        style={Styles.textInput}
         onChangeText={question => setQuestion(question)}
         value={question}
       />
       <Text style={styles.label}>Answer</Text>
       <TextInput
-        style={sharedStyles.textInput}
+        style={Styles.textInput}
         onChangeText={answer => setAnswer(answer)}
         value={answer}
       />

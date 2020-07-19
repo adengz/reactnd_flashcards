@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StatusBar, Platform, Text } from 'react-native';
+import { StatusBar, Platform, View } from 'react-native';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,18 +13,13 @@ import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import NewCard from './components/NewCard';
 import Quiz from './components/Quiz';
-import { TritonLight, TritonDark } from './styles/themes';
+import { Triton, THU } from './styles/themes';
 
-const GeneralStatusBar = () => {
-  const backgroundColor = '#182B49';
-  const statusBarProps = { backgroundColor, barStyle: 'light-content' };
-
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar {...statusBarProps} />
-    </View>
-  );
-}
+const GeneralStatusBar = ({backgroundColor, ...props}) => (
+  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <StatusBar backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -97,11 +92,17 @@ const StackNavigator = () => {
 }
 
 export default function App() {
+  const theme = THU;
+  const statusBarProps = {
+    backgroundColor: theme.colors.primary,
+    barStyle: 'light-content'
+  };
+
   return (
     <Provider store={createStore(reducer)}>
       <View style={{ flex: 1 }}>
-        <GeneralStatusBar />
-        <NavigationContainer theme={TritonDark}>
+        <GeneralStatusBar {...statusBarProps} />
+        <NavigationContainer theme={theme}>
           <StackNavigator />
         </NavigationContainer>
       </View>

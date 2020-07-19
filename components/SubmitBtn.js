@@ -1,21 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import sharedStyles from '../utils/stylesheet';
-import { purple, white } from '../utils/colors';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import Styles from '../styles/stylesheet';
 
 export default function SubmitBtn({ onPress, disabled }) {
+  const themeColor = useTheme().colors.primary;
   const styles = StyleSheet.create({
     submitBtn: {
-      ...sharedStyles.button,
-      borderColor: purple,
-      backgroundColor: purple,
+      ...Styles.button,
+      borderColor: themeColor,
+      backgroundColor: themeColor,
       margin: 20,
-      opacity: disabled ? 0.6 : 1
+      opacity: disabled ? 0.6 : 1,
     },
-    submitBtnText: {
-      ...sharedStyles.buttonText,
-      color: white
-    }
   });
 
   return (
@@ -24,7 +21,7 @@ export default function SubmitBtn({ onPress, disabled }) {
       onPress={onPress}
       disabled={disabled}
     >
-      <Text style={styles.submitBtnText}>
+      <Text style={Styles.buttonText}>
         Submit
       </Text>
     </TouchableOpacity>

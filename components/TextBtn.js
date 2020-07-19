@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 export default function TextBtn({ text, color, onPress }) {
   const styles = StyleSheet.create({
@@ -9,8 +9,8 @@ export default function TextBtn({ text, color, onPress }) {
     text: {
       fontSize: 20,
       fontWeight: 'bold',
-      color
-    }
+      color,
+    },
   });
 
   return (
