@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { setTheme } from '../actions/settings';
 import { Ionicons } from '@expo/vector-icons';
 import Themes from '../styles/themes';
 import { white } from '../styles/palette';
@@ -9,6 +10,11 @@ import Styles from '../styles/stylesheet';
 export default function ThemePicker() {
   const currentTheme = useSelector(({ settings }) => settings.theme);
   const dispatch = useDispatch();
+
+  const changeTheme = (theme) => {
+    dispatch(setTheme(theme));
+  }
+
   const themes = JSON.parse(JSON.stringify(Themes));
   for (let k in themes) {
     themes[k].key = k;
@@ -35,6 +41,7 @@ export default function ThemePicker() {
           return (
             <TouchableOpacity
               style={[styles.btn, { backgroundColor: item.colors.primary }]}
+              onPress={() => changeTheme(item.key)}
             >
               {item.key === currentTheme && <Ionicons
                                               name={`${iconPrefix}-checkmark`}
