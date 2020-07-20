@@ -2,6 +2,7 @@ export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const ADD_DECK = 'ADD_DECK';
 export const DELETE_DECK = 'DELETE_DECK';
 export const ADD_CARD = 'ADD_CARD';
+export const CLEAR_DATA = 'CLEAR_DATA';
 
 export const receiveData = (data) => ({
   type: RECEIVE_DATA,
@@ -25,4 +26,8 @@ export const addCard = (id, question, answer) => ({
   id,
   question,
   answer
+});
+
+export const clearData = () => ({
+  type: CLEAR_DATA
 });

@@ -1,4 +1,10 @@
-import { RECEIVE_DATA, ADD_DECK, DELETE_DECK, ADD_CARD } from '../actions/data';
+import {
+  RECEIVE_DATA,
+  ADD_DECK,
+  DELETE_DECK,
+  ADD_CARD,
+  CLEAR_DATA
+} from '../actions/data';
 
 export default function data(state={}, action) {
   switch(action.type) {
@@ -35,6 +41,8 @@ export default function data(state={}, action) {
           }])
         }
       };
+    case CLEAR_DATA:
+      return {};
     default: 
       return state;
   }
