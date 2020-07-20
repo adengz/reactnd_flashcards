@@ -1,9 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Text, Switch } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
 import Styles from '../styles/stylesheet';
 
 export default function Settings() {
+  const navigation = useNavigation();
+  const themeColor = useTheme().colors.primary;
+
+  const styles = StyleSheet.create({
+    colorPad: {
+      width: 30,
+      height: 30,
+      backgroundColor: themeColor,
+      borderRadius: 5,
+    },
+  });
+
   const data: SettingsData = [
     {
       type: 'SECTION',
@@ -11,16 +24,9 @@ export default function Settings() {
       rows: [
         {
           title: 'Theme',
-          renderAccessory: () => (
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: 'blue',
-              }}
-            />
-          ),
+          renderAccessory: () => <View style={styles.colorPad}/>,
           showDisclosureIndicator: true,
+          onPress: () => navigation.navigate('ThemePicker')
         },
       ],
     },

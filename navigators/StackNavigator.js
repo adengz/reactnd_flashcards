@@ -6,6 +6,7 @@ import TabNavigator from './TabNavigator';
 import Deck from '../components/Deck';
 import NewCard from '../components/NewCard';
 import Quiz from '../components/Quiz';
+import ThemePicker from '../components/ThemePicker';
 import Themes from '../styles/themes';
 
 export default function StackNavigator() {
@@ -31,6 +32,11 @@ export default function StackNavigator() {
       name: 'Quiz',
       component: Quiz,
       options: { title: 'Quiz' }
+    },
+    ThemePicker: {
+      name: 'ThemePicker',
+      component: ThemePicker,
+      options: { title: 'Pick a theme' }
     },
   };
 
