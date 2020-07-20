@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { AppLoading } from 'expo';
-import { receiveData } from '../actions';
+import { receiveData } from '../actions/data';
 import { fetchDataAsync, resetDataAsync } from '../utils/data';
 import CardFlip from 'react-native-card-flip';
 import DeckCover from './DeckCover';

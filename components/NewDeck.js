@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { addDeck } from '../actions';
+import { addDeck } from '../actions/data';
 import { addDeckAsync } from '../utils/data';
 import SubmitBtn from './SubmitBtn';
 import Styles from '../styles/stylesheet';

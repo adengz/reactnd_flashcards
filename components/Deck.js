@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import { useRoute, useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { deleteDeck } from '../actions';
+import { deleteDeck } from '../actions/data';
 import { deleteDeckAsync } from '../utils/data';
 import DeckCover from './DeckCover';
 import TextBtn from './TextBtn';

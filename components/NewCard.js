@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { addCard } from '../actions';
+import { addCard } from '../actions/data';
 import { addCardAsync } from '../utils/data';
 import SubmitBtn from './SubmitBtn';
 import Styles from '../styles/stylesheet';
