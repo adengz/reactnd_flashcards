@@ -5,6 +5,10 @@ import { SettingsData, RowData, SettingsScreen } from 'react-native-settings-scr
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { toggleReminder, setReminderTime } from '../actions/settings';
 import { toggleRemiderAsync, setReminderTimeAsync } from '../utils/settings';
+import {
+  requestNotificationPermission,
+  turnOffDailyReminder
+} from '../utils/notifications';
 import Styles from '../styles/stylesheet';
 
 export default function ReminderSetter() {
@@ -14,8 +18,26 @@ export default function ReminderSetter() {
   const { hh, mm } = reminderTime;
 
   const toggleSwitch = () => {
-    toggleRemiderAsync();
-    dispatch(toggleReminder());
+    const needPermission = !dailyReminder;
+    const updateState = () => {
+      toggleRemiderAsync();
+      dispatch(toggleReminder());
+    }
+
+    // optimistically update UI
+    updateState();
+
+    if (needPermission) {  // need to check and request permission
+      requestNotificationPermission()
+        .then(() => console.log('ui: schedule notification here'))
+        .catch(() => {
+          console.log('ui: permission not granted');
+          // switch state back
+          updateState();
+        });
+    } else {
+      turnOffDailyReminder();
+    }
   }
 
   const showTimePicker = () => {
