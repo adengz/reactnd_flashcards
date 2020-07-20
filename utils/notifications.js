@@ -3,6 +3,8 @@ import * as Permissions from 'expo-permissions';
 import AsyncStorage from '@react-native-community/async-storage';
 import { fetchSettingsAsync } from './settings';
 
+// This module/feature is untestable, and will be removed
+
 const REMINDER_STORAGE_KEY = 'FlashCards:reminder';
 
 export const requestNotificationPermission = () => {
@@ -35,7 +37,7 @@ export const turnOffDailyReminder = () => {
 }
 
 export const scheduleDailyReminder = () => {
-  const reminderContent = {
+  const content = {
     title: 'Take a quiz today',
     body: "Don't forget to take your daily quiz today!"
   };
@@ -48,9 +50,9 @@ export const scheduleDailyReminder = () => {
       tomorrow.setHours(hh);
       tomorrow.setMinutes(mm);
 
-      Notifications.scheduleNotificationAsync(
-        reminderContent,
-        { time: tomorrow, repeat: 'day' }
-      ).then((identifier) => AsyncStorage.setItem(REMINDER_STORAGE_KEY, identifier));
+      Notifications.scheduleNotificationAsync({
+        content,
+        trigger: { time: tomorrow, repeat: 'day' }
+      }).then((identifier) => AsyncStorage.setItem(REMINDER_STORAGE_KEY, identifier));
     });
 }
