@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Switch } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
+import { SettingsScreen, SettingsData, RowData } from 'react-native-settings-screen';
 import { toggleReminder } from '../actions/settings';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
@@ -44,9 +44,6 @@ export default function Settings() {
       marginRight: 6,
       fontSize: 18,
     },
-    valueDisabled: {
-      textDecorationLine: 'line-through',
-    },
     dangerTitle: {
       color: red,
       fontWeight: 'bold',
@@ -79,14 +76,6 @@ export default function Settings() {
             />
           ),
         },
-        {
-          title: 'Remind me at',
-          renderAccessory: () => (
-            <Text style={[styles.value, (!dailyReminder && styles.valueDisabled)]}>
-              {hh.toString().padStart(2, '0')}:{mm.toString().padStart(2, '0')}
-            </Text>
-          ),
-        },
       ],
     },
     {
@@ -101,6 +90,21 @@ export default function Settings() {
       ],
     },
   ];
+
+  const timePicker: RowData = {
+    title: 'Remind me at',
+    renderAccessory: () => (
+      <Text style={styles.value}>
+        {hh.toString().padStart(2, '0')}:{mm.toString().padStart(2, '0')}
+      </Text>
+    ),
+    showDisclosureIndicator: true,
+    onPress: () => navigation.navigate('TimePicker'),
+  };
+
+  if (dailyReminder) {
+    data[1].rows.push(timePicker);
+  }
 
   return (
     <View style={Styles.container}>
