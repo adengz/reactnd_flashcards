@@ -37,7 +37,7 @@ export default function Deck() {
   const themeColor = useTheme().colors.primary;
   const styles = StyleSheet.create({
     cover: {
-      marginVertical: 100,
+      marginBottom: 100,
     },
     addBtn: {
       ...Styles.button,
@@ -70,7 +70,7 @@ export default function Deck() {
         >
           <Text style={Styles.buttonText}>Start Quiz</Text>
         </TouchableOpacity>
-        <TextBtn text="Delete Deck" color={red} onPress={preRemove}/>
+        <TextBtn text="DELETE DECK" color={red} onPress={preRemove}/>
       </View>
     </View>
   );

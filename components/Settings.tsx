@@ -55,7 +55,7 @@ export default function Settings() {
       header: 'Notifications',
       rows: [
         {
-          title: 'Daily Quiz Reminder',
+          title: 'Daily quiz reminder',
           subtitle: 'Reminds you to take at least a quiz everyday',
           showDisclosureIndicator: true,
           onPress: () => navigation.navigate('ReminderSetter'),
@@ -67,7 +67,7 @@ export default function Settings() {
       header: 'Danger Zone',
       rows: [
         {
-          title: 'Clear data',
+          title: 'CLEAR DATA',
           titleStyle: Styles.menuDangerTitle,
           onPress: preResetData,
         },

@@ -48,7 +48,8 @@ class DeckList extends Component {
       cardContainer: {
         ...Styles.cardContainer,
         height: 128,
-        margin: 5,
+        marginVertical: 5,
+        marginHorizontal: 15,
       },
       msgContainer: {
         alignItems: 'center',

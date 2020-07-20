@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 import { gray, white, red } from './palette';
 
 const Styles = StyleSheet.create({
@@ -41,7 +42,7 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardContainer: {
-    width: 320,
+    width: Dimensions.get('window').width * 0.9,
   },
   card: {
     width: '100%',

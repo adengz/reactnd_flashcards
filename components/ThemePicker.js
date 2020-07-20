@@ -1,5 +1,12 @@
 import React from 'react';
-import { Platform, StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Dimensions,
+  View,
+  FlatList,
+  TouchableOpacity
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTheme } from '../actions/settings';
 import { setThemeAsync } from '../utils/settings';
@@ -24,11 +31,12 @@ export default function ThemePicker() {
 
   const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
+  const size = Dimensions.get('window').width * 0.45;
   const styles = StyleSheet.create({
     btn: {
-      height: 160,
-      width: 160,
-      margin: 10,
+      height: size,
+      width: size,
+      margin: 5,
       borderRadius: 5,
       justifyContent: 'center',
       alignItems: 'center',
