@@ -1,12 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Text, Switch } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
+import { clearData } from '../actions/data';
+import { resetDataAsync } from '../utils/data';
+import { red } from '../styles/palette';
 import Styles from '../styles/stylesheet';
 
 export default function Settings() {
   const navigation = useNavigation();
   const themeColor = useTheme().colors.primary;
+  const dispatch = useDispatch();
+
+  const clear = () => {
+    resetDataAsync();
+    dispatch(clearData());
+  }
 
   const styles = StyleSheet.create({
     colorPad: {
@@ -14,6 +24,10 @@ export default function Settings() {
       height: 30,
       backgroundColor: themeColor,
       borderRadius: 5,
+    },
+    dangerTitle: {
+      color: red,
+      fontWeight: 'bold',
     },
   });
 
@@ -26,7 +40,7 @@ export default function Settings() {
           title: 'Theme',
           renderAccessory: () => <View style={styles.colorPad}/>,
           showDisclosureIndicator: true,
-          onPress: () => navigation.navigate('ThemePicker')
+          onPress: () => navigation.navigate('ThemePicker'),
         },
       ],
     },
@@ -55,10 +69,8 @@ export default function Settings() {
       rows: [
         {
           title: 'Clear data',
-          titleStyle: {
-            color: 'red',
-            fontWeight: 'bold',
-          },
+          titleStyle: styles.dangerTitle,
+          onPress: () => clear(),
         },
       ],
     },
