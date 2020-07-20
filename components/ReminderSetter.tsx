@@ -3,7 +3,7 @@ import { Switch, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SettingsData, RowData, SettingsScreen } from 'react-native-settings-screen';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { toggleReminder } from '../actions/settings';
+import { toggleReminder, setReminderTime } from '../actions/settings';
 import Styles from '../styles/stylesheet';
 
 export default function ReminderSetter() {
@@ -21,9 +21,9 @@ export default function ReminderSetter() {
   }
 
   const submit = (date) => {
-    // dispatch blah blah
-    console.log(date);
     hideTimePicker();
+    const hh = date.getHours(), mm = date.getMinutes();
+    dispatch(setReminderTime(hh, mm));
   }
 
   const data: SettingsData = [
