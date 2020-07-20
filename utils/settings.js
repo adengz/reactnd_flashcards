@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-const SETTING_STORAGE_KEY = 'FlashCards:settings';
+const SETTINGS_STORAGE_KEY = 'FlashCards:settings';
 
 export const initiateSettingsAsync = (defaultSettings) => {
   return AsyncStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(defaultSettings));

@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTheme } from '../actions/settings';
+import { setThemeAsync } from '../utils/settings';
 import { Ionicons } from '@expo/vector-icons';
 import Themes from '../styles/themes';
 import Styles from '../styles/stylesheet';
@@ -12,6 +13,7 @@ export default function ThemePicker() {
   const dispatch = useDispatch();
 
   const changeTheme = (theme) => {
+    setThemeAsync(theme);
     dispatch(setTheme(theme));
   }
 

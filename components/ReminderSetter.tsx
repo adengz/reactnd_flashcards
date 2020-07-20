@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SettingsData, RowData, SettingsScreen } from 'react-native-settings-screen';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { toggleReminder, setReminderTime } from '../actions/settings';
+import { toggleRemiderAsync, setReminderTimeAsync } from '../utils/settings';
 import Styles from '../styles/stylesheet';
 
 export default function ReminderSetter() {
@@ -11,6 +12,11 @@ export default function ReminderSetter() {
   const dispatch = useDispatch();
   const { dailyReminder, reminderTime } = useSelector(({ settings }) => settings);
   const { hh, mm } = reminderTime;
+
+  const toggleSwitch = () => {
+    toggleRemiderAsync();
+    dispatch(toggleReminder());
+  }
 
   const showTimePicker = () => {
     changePickerVis(true);
@@ -20,9 +26,10 @@ export default function ReminderSetter() {
     changePickerVis(false);
   }
 
-  const submit = (date) => {
+  const confirmTime = (date) => {
     hideTimePicker();
     const hh = date.getHours(), mm = date.getMinutes();
+    setReminderTimeAsync(hh, mm);
     dispatch(setReminderTime(hh, mm));
   }
 
@@ -36,7 +43,7 @@ export default function ReminderSetter() {
           renderAccessory: () => (
             <Switch
               value={dailyReminder}
-              onValueChange={() => dispatch(toggleReminder())} 
+              onValueChange={toggleSwitch}
             />
           ),
         },
@@ -64,7 +71,7 @@ export default function ReminderSetter() {
       <DateTimePickerModal
         isVisible={pickerVisible}
         mode="time"
-        onConfirm={submit}
+        onConfirm={confirmTime}
         onCancel={hideTimePicker}
       />
     </View>
