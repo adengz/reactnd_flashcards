@@ -4,6 +4,7 @@ import { useRoute, useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { deleteDeck } from '../actions/data';
 import { deleteDeckAsync } from '../utils/data';
+import { createTwoButtonnAlert } from '../utils/alerts';
 import DeckCover from './DeckCover';
 import TextBtn from './TextBtn';
 import Styles from '../styles/stylesheet';
@@ -12,8 +13,18 @@ import { black, red } from '../styles/palette';
 export default function Deck() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { id } = route.params;
+  const { id, title } = route.params;
   const dispatch = useDispatch();
+
+  const preRemove = () => (
+    createTwoButtonnAlert({
+      title: `Delete ${title}`,
+      msg: 'Are you sure you want to delete ' + title +
+        '?\nThis operation cannot be undone.',
+      confirmText: 'Confirm',
+      confirmOnPress: remove
+    })
+  );
 
   const remove = () => {
     deleteDeckAsync(id);
@@ -59,7 +70,7 @@ export default function Deck() {
         >
           <Text style={Styles.buttonText}>Start Quiz</Text>
         </TouchableOpacity>
-        <TextBtn text="Delete Deck" color={red} onPress={remove}/>
+        <TextBtn text="Delete Deck" color={red} onPress={preRemove}/>
       </View>
     </View>
   );
