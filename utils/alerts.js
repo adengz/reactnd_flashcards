@@ -4,13 +4,14 @@ export const createTwoButtonnAlert = ({
   title,
   msg,
   cancelText='Cancel',
+  cancelOnPress= () => null,
   confirmText='OK',
   confirmOnPress
 }) => (
   Alert.alert(title, msg, [
     {
       text: cancelText,
-      onPress: () => null,
+      onPress: cancelOnPress,
       style: 'cancel'
     },
     {

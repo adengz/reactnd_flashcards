@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setTheme } from '../actions/settings';
 import { Ionicons } from '@expo/vector-icons';
 import Themes from '../styles/themes';
-import { white } from '../styles/palette';
 import Styles from '../styles/stylesheet';
+import { white } from '../styles/palette';
 
 export default function ThemePicker() {
   const currentTheme = useSelector(({ settings }) => settings.theme);

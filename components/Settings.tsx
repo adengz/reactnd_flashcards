@@ -5,13 +5,24 @@ import { useDispatch } from 'react-redux';
 import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
-import { red } from '../styles/palette';
+import { createTwoButtonnAlert } from '../utils/alerts';
 import Styles from '../styles/stylesheet';
+import { red } from '../styles/palette';
 
 export default function Settings() {
   const navigation = useNavigation();
   const themeColor = useTheme().colors.primary;
   const dispatch = useDispatch();
+
+  const preClear = () => (
+    createTwoButtonnAlert({
+      title: 'Clear data',
+      msg: 'Are you sure you want to clear all data?' + 
+        '\nThis operation cannot be undone.',
+      confirmText: 'Confirm',
+      confirmOnPress: clear
+    })
+  );
 
   const clear = () => {
     resetDataAsync();
@@ -70,7 +81,7 @@ export default function Settings() {
         {
           title: 'Clear data',
           titleStyle: styles.dangerTitle,
-          onPress: () => clear(),
+          onPress: preClear,
         },
       ],
     },
