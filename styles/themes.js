@@ -5,18 +5,19 @@ const lightColors = {
   border: '#808080'
 };
 
-export const Triton = {
-  dark: false,
-  colors: {
-    primary: '#006A96',
-    ...lightColors
-  }
-};
-
-export const THU = {
-  dark: false,
-  colors: {
-    primary: '#660874',
-    ...lightColors
-  }
+export default Themes = {
+  Triton: {
+    dark: false,
+    colors: {
+      primary: '#006A96',
+      ...lightColors
+    }
+  },
+  THU: {
+    dark: false,
+    colors: {
+      primary: '#660874',
+      ...lightColors
+    }
+  },
 };
