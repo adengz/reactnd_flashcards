@@ -10,7 +10,9 @@ import Styles from '../styles/stylesheet';
 import { black, green, red, colorMap } from '../styles/palette';
 
 const Result = ({ right, count, startOver }) => {
-  useEffect(scheduleDailyReminder);
+  useEffect(() => {
+    scheduleDailyReminder();
+  });
 
   const percent = Math.round(right / count * 100);
   const navigation = useNavigation();
