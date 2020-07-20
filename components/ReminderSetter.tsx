@@ -7,7 +7,8 @@ import { toggleReminder, setReminderTime } from '../actions/settings';
 import { toggleRemiderAsync, setReminderTimeAsync } from '../utils/settings';
 import {
   requestNotificationPermission,
-  turnOffDailyReminder
+  turnOffDailyReminder,
+  scheduleDailyReminder
 } from '../utils/notifications';
 import Styles from '../styles/stylesheet';
 
@@ -18,22 +19,21 @@ export default function ReminderSetter() {
   const { hh, mm } = reminderTime;
 
   const toggleSwitch = () => {
-    const needPermission = !dailyReminder;
-    const updateState = () => {
-      toggleRemiderAsync();
-      dispatch(toggleReminder());
-    }
+    const turningOn = !dailyReminder;
 
-    // optimistically update UI
-    updateState();
+    // optimistically update state on UI
+    dispatch(toggleReminder());
 
-    if (needPermission) {  // need to check and request permission
+    if (turningOn) {  // need to check and request permission
       requestNotificationPermission()
-        .then(() => console.log('ui: schedule notification here'))
-        .catch(() => {
+        .then(() => {  // permission granted, update setting storage and then schedule
+          console.log('ui: permission granted');
+          toggleRemiderAsync().then(scheduleDailyReminder);
+        })
+        .catch(() => {  // permission not granted
           console.log('ui: permission not granted');
           // switch state back
-          updateState();
+          dispatch(toggleReminder());
         });
     } else {
       turnOffDailyReminder();
@@ -51,8 +51,8 @@ export default function ReminderSetter() {
   const confirmTime = (date) => {
     hideTimePicker();
     const hh = date.getHours(), mm = date.getMinutes();
-    setReminderTimeAsync(hh, mm);
     dispatch(setReminderTime(hh, mm));
+    setReminderTimeAsync(hh, mm).then(scheduleDailyReminder);
   }
 
   const data: SettingsData = [

@@ -5,11 +5,6 @@ import { fetchSettingsAsync } from './settings';
 
 const REMINDER_STORAGE_KEY = 'FlashCards:reminder';
 
-const createReminderContent = () => ({
-  title: 'Take a quiz today',
-  body: "Don't forget to take your daily quiz for today!"
-});
-
 export const requestNotificationPermission = () => {
   const PERMISSION_TYPE = Permissions.NOTIFICATIONS;
   return Permissions.getAsync(PERMISSION_TYPE)
@@ -36,5 +31,26 @@ export const turnOffDailyReminder = () => {
         return Notifications.cancelScheduledNotificationAsync(identifier)
           .then(AsyncStorage.removeItem(REMINDER_STORAGE_KEY));
       }
+    });
+}
+
+export const scheduleDailyReminder = () => {
+  const reminderContent = {
+    title: 'Take a quiz today',
+    body: "Don't forget to take your daily quiz today!"
+  };
+
+  return fetchSettingsAsync()
+    .then(({ reminderTime }) => {
+      const { hh, mm } = reminderTime;
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(hh);
+      tomorrow.setMinutes(mm);
+
+      Notifications.scheduleNotificationAsync(
+        reminderContent,
+        { time: tomorrow, repeat: 'day' }
+      ).then((identifier) => AsyncStorage.setItem(REMINDER_STORAGE_KEY, identifier));
     });
 }
