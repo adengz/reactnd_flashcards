@@ -8,9 +8,9 @@ export const receiveSettings = (settings) => ({
   settings
 });
 
-export const setTheme = (name) => ({
+export const setTheme = (theme) => ({
   type: SET_THEME,
-  name
+  theme
 });
 
 export const toggleReminder = () => ({
