@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect, Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import CardFlip from 'react-native-card-flip';
+import { scheduleDailyReminder } from '../utils/notifications';
 import DonutChart from './DonutChart';
 import TextBtn from './TextBtn';
 import Styles from '../styles/stylesheet';
 import { black, green, red, colorMap } from '../styles/palette';
 
 const Result = ({ right, count, startOver }) => {
+  useEffect(scheduleDailyReminder);
+
   const percent = Math.round(right / count * 100);
   const navigation = useNavigation();
 
