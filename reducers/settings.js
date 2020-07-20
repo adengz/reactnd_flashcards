@@ -5,7 +5,16 @@ import {
   SET_REMINDER_TIME
 } from '../actions/settings';
 
-export default function settings(state={}, action) {
+const defaultState = {
+  theme: 'THU',
+  dailyReminder: false,
+  reminderTime: {
+    hh: 20,
+    mm: 0
+  }
+};
+
+export default function settings(state=defaultState, action) {
   switch(action.type) {
     case RECEIVE_SETTINGS:
       return {
