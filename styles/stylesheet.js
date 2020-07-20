@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { gray, white } from './palette';
+import { gray, white, red } from './palette';
 
 const Styles = StyleSheet.create({
   container: {
@@ -49,6 +49,15 @@ const Styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  menuValue: {
+    color: gray,
+    marginRight: 6,
+    fontSize: 18,
+  },
+  menuDangerTitle: {
+    color: red,
+    fontWeight: 'bold',
   },
 });
 

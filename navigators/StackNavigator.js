@@ -7,7 +7,7 @@ import Deck from '../components/Deck';
 import NewCard from '../components/NewCard';
 import Quiz from '../components/Quiz';
 import ThemePicker from '../components/ThemePicker';
-import TimePicker from '../components/TimePicker';
+import ReminderSetter from '../components/ReminderSetter';
 import Themes from '../styles/themes';
 
 export default function StackNavigator() {
@@ -39,10 +39,10 @@ export default function StackNavigator() {
       component: ThemePicker,
       options: { title: 'Pick a theme' }
     },
-    TimePicker: {
-      name: 'TimePicker',
-      component: TimePicker,
-      options: { title: 'Remind me at' }
+    ReminderSetter: {
+      name: 'ReminderSetter',
+      component: ReminderSetter,
+      options: { title: 'Quiz Reminder' }
     },
   };
 

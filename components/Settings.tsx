@@ -1,21 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text, Switch } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { SettingsScreen, SettingsData, RowData } from 'react-native-settings-screen';
-import { toggleReminder } from '../actions/settings';
+import { useDispatch } from 'react-redux';
+import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
 import { createTwoButtonnAlert } from '../utils/alerts';
 import Styles from '../styles/stylesheet';
-import { gray, red } from '../styles/palette';
 
 export default function Settings() {
   const navigation = useNavigation();
   const themeColor = useTheme().colors.primary;
   const dispatch = useDispatch();
-  const { dailyReminder, reminderTime } = useSelector(({ settings }) => settings);
-  const { hh, mm } = reminderTime;
 
   const preResetData = () => (
     createTwoButtonnAlert({
@@ -39,15 +35,6 @@ export default function Settings() {
       backgroundColor: themeColor,
       borderRadius: 5,
     },
-    value: {
-      color: gray,
-      marginRight: 6,
-      fontSize: 18,
-    },
-    dangerTitle: {
-      color: red,
-      fontWeight: 'bold',
-    },
   });
 
   const data: SettingsData = [
@@ -68,13 +55,10 @@ export default function Settings() {
       header: 'Notifications',
       rows: [
         {
-          title: 'Daily quiz reminder',
-          renderAccessory: () => (
-            <Switch
-              value={dailyReminder}
-              onValueChange={() => dispatch(toggleReminder())} 
-            />
-          ),
+          title: 'Daily Quiz Reminder',
+          subtitle: 'Reminds you to take at least a quiz everyday',
+          showDisclosureIndicator: true,
+          onPress: () => navigation.navigate('ReminderSetter'),
         },
       ],
     },
@@ -84,27 +68,12 @@ export default function Settings() {
       rows: [
         {
           title: 'Clear data',
-          titleStyle: styles.dangerTitle,
+          titleStyle: Styles.menuDangerTitle,
           onPress: preResetData,
         },
       ],
     },
   ];
-
-  const timePicker: RowData = {
-    title: 'Remind me at',
-    renderAccessory: () => (
-      <Text style={styles.value}>
-        {hh.toString().padStart(2, '0')}:{mm.toString().padStart(2, '0')}
-      </Text>
-    ),
-    showDisclosureIndicator: true,
-    onPress: () => navigation.navigate('TimePicker'),
-  };
-
-  if (dailyReminder) {
-    data[1].rows.push(timePicker);
-  }
 
   return (
     <View style={Styles.container}>
