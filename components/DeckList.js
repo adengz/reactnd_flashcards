@@ -29,7 +29,7 @@ class DeckList extends Component {
       return <AppLoading />;
     }
 
-    const { decks } = this.props;
+    const { data } = this.props;
 
     const styles = StyleSheet.create({
       cardContainer: {
@@ -49,7 +49,7 @@ class DeckList extends Component {
     return (
       <View style={Styles.container}>
         <FlatList
-          data={Object.values(decks).sort((a, b) => a.timestamp - b.timestamp)}
+          data={Object.values(data).sort((a, b) => a.timestamp - b.timestamp)}
           renderItem={({ item, index }) => (
             <CardFlip
               style={styles.cardContainer}
@@ -84,6 +84,6 @@ class DeckList extends Component {
   }
 }
 
-const mapStateToProps = state => ({ decks: state });
+const mapStateToProps = ({ data }) => ({ data });
 
 export default connect(mapStateToProps)(DeckList);

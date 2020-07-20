@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { darkGray } from '../styles/palette';
 
 export default function DeckCover({ id, scale=1, style={} }) {
-  const deck = useSelector(state => state[id]);
+  const deck = useSelector(({ data }) => data[id]);
 
   if (typeof deck === 'undefined') {
     return null;

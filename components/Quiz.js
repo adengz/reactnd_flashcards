@@ -184,9 +184,9 @@ class Quiz extends Component {
   }
 }
 
-const mapStateToProps = (state, { route }) => {
+const mapStateToProps = ({ data }, { route }) => {
   const { id } = route.params;
-  const { questions } = state[id];
+  const { questions } = data[id];
   return { questions };
 }
 
