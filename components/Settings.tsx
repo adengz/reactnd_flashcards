@@ -1,30 +1,33 @@
 import React from 'react';
 import { StyleSheet, View, Text, Switch } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
+import { toggleReminder } from '../actions/settings';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
 import { createTwoButtonnAlert } from '../utils/alerts';
 import Styles from '../styles/stylesheet';
-import { red } from '../styles/palette';
+import { gray, red } from '../styles/palette';
 
 export default function Settings() {
   const navigation = useNavigation();
   const themeColor = useTheme().colors.primary;
   const dispatch = useDispatch();
+  const { dailyReminder, reminderTime } = useSelector(({ settings }) => settings);
+  const { hh, mm } = reminderTime;
 
-  const preClear = () => (
+  const preResetData = () => (
     createTwoButtonnAlert({
       title: 'Clear data',
       msg: 'Are you sure you want to clear all data?' + 
         '\nThis operation cannot be undone.',
       confirmText: 'Confirm',
-      confirmOnPress: clear
+      confirmOnPress: resetData
     })
   );
 
-  const clear = () => {
+  const resetData = () => {
     resetDataAsync();
     dispatch(clearData());
   }
@@ -35,6 +38,14 @@ export default function Settings() {
       height: 30,
       backgroundColor: themeColor,
       borderRadius: 5,
+    },
+    value: {
+      color: gray,
+      marginRight: 6,
+      fontSize: 18,
+    },
+    valueDisabled: {
+      textDecorationLine: 'line-through',
     },
     dangerTitle: {
       color: red,
@@ -61,14 +72,18 @@ export default function Settings() {
       rows: [
         {
           title: 'Daily quiz reminder',
-          renderAccessory: () => <Switch value onValueChange={() => {}} />,
+          renderAccessory: () => (
+            <Switch
+              value={dailyReminder}
+              onValueChange={() => dispatch(toggleReminder())} 
+            />
+          ),
         },
         {
           title: 'Remind me at',
-          showDisclosureIndicator: true,
           renderAccessory: () => (
-            <Text style={{ color: '#999', marginRight: 6, fontSize: 18 }}>
-              20:00
+            <Text style={[styles.value, (!dailyReminder && styles.valueDisabled)]}>
+              {hh.toString().padStart(2, '0')}:{mm.toString().padStart(2, '0')}
             </Text>
           ),
         },
@@ -81,7 +96,7 @@ export default function Settings() {
         {
           title: 'Clear data',
           titleStyle: styles.dangerTitle,
-          onPress: preClear,
+          onPress: preResetData,
         },
       ],
     },
