@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import CardFlip from 'react-native-card-flip';
@@ -14,25 +14,6 @@ const Result = ({ right, count, startOver }) => {
   const navigation = useNavigation();
 
   const themeColor = useTheme().colors.primary;
-  const styles = StyleSheet.create({
-    stats: {
-      fontSize: 24,
-      textAlign: 'center',
-    },
-    backBtn: {
-      ...Styles.button,
-      borderColor: themeColor,
-    },
-    backBtnText: {
-      ...Styles.buttonText,
-      color: black,
-    },
-    resetBtn: {
-      ...Styles.button,
-      borderColor: themeColor,
-      backgroundColor: themeColor,
-    },
-  });
 
   return (
     <View style={Styles.container}>
@@ -41,13 +22,18 @@ const Result = ({ right, count, startOver }) => {
       <DonutChart percent={percent} />
       <View style={Styles.buttonGroup}>
         <TouchableOpacity
-          style={styles.backBtn}
+          style={[Styles.button, { borderColor: themeColor }]}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backBtnText}>Back to Deck</Text>
+          <Text style={[Styles.buttonText, { color: black }]}>
+            Back to Deck
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.resetBtn}
+          style={[
+            Styles.button,
+            { borderColor: themeColor, backgroundColor: themeColor }
+          ]}
           onPress={startOver}
         >
           <Text style={Styles.buttonText}>Start Over</Text>
@@ -60,16 +46,16 @@ const Result = ({ right, count, startOver }) => {
 class Quiz extends Component {
   constructor(props) {
     super(props);
-    this.shulffleCards();
+    this.shuffleCards();
     this.state = { count: 0, right: 0, showAnswer: false };
   }
 
-  shulffleCards = () => {
+  shuffleCards = () => {
     this.props.questions.sort((a, b) => 0.5 - Math.random());
   }
 
   startOver = () => {
-    this.shulffleCards();
+    this.shuffleCards();
     this.setState({ count: 0, right: 0, showAnswer: false });
   }
 
@@ -115,50 +101,19 @@ class Quiz extends Component {
     const { question, answer } = questions[count];
 
     const colorIndex = count * 2 % colorMap.length;
-    const styles = StyleSheet.create({
-      progress: {
-        fontSize: 24,
-        textAlign: 'center',
-      },
-      rightBtn: {
-        ...Styles.button,
-        borderColor: green,
-        backgroundColor: green,
-      },
-      wrongBtn: {
-        ...Styles.button,
-        borderColor: red,
-        backgroundColor: red,
-      },
-      cardContainer: {
-        ...Styles.cardContainer,
-        height: 320,
-        margin: 20,
-      },
-      cardFront: {
-        backgroundColor: colorMap[colorIndex],
-      },
-      cardBack: {
-        backgroundColor: colorMap[colorIndex + 1],
-      },
-      label: {
-        margin: 10,
-        fontSize: 30,
-        backgroundColor: 'transparent',
-        textAlign: 'center',
-      },
-    });
+    const frontColor = colorMap[colorIndex];
+    const backColor = colorMap[colorIndex + 1];
 
     return (
       <View style={Styles.container}>
-        <Text style={styles.progress}>
+        <Text style={styles.stats}>
           {length - count} / {length}
         </Text>
         <CardFlip style={styles.cardContainer} ref={card => this.card = card}>
-          <View style={[Styles.card, styles.cardFront]}>
+          <View style={[Styles.card, { backgroundColor: frontColor }]}>
             <Text style={styles.label}>{question}</Text>
           </View>
-          <View style={[Styles.card, styles.cardBack]}>
+          <View style={[Styles.card, { backgroundColor: backColor }]}>
             <Text style={styles.label}>{answer}</Text>
           </View>
         </CardFlip>
@@ -192,3 +147,29 @@ const mapStateToProps = ({ data }, { route }) => {
 }
 
 export default connect(mapStateToProps)(Quiz);
+
+const styles = StyleSheet.create({
+  stats: {
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  rightBtn: {
+    ...Styles.button,
+    backgroundColor: green,
+  },
+  wrongBtn: {
+    ...Styles.button,
+    backgroundColor: red,
+  },
+  cardContainer: {
+    ...Styles.cardContainer,
+    height: 320,
+    margin: 20,
+  },
+  label: {
+    margin: 10,
+    fontSize: 30,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+  },
+});

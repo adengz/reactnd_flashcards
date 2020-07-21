@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { AppLoading } from 'expo';
 import { receiveSettings } from '../actions/settings';
@@ -44,22 +44,6 @@ class DeckList extends Component {
 
     const { data } = this.props;
 
-    const styles = StyleSheet.create({
-      cardContainer: {
-        ...Styles.cardContainer,
-        height: 128,
-        marginVertical: 5,
-        marginHorizontal: 15,
-      },
-      msgContainer: {
-        alignItems: 'center',
-      },
-      emptyListMsg: {
-        fontSize: 15,
-        textAlign: 'center',
-      },
-    });
-
     return (
       <View style={Styles.container}>
         <FlatList
@@ -101,3 +85,19 @@ class DeckList extends Component {
 const mapStateToProps = ({ settings, data }) => ({ settings, data });
 
 export default connect(mapStateToProps)(DeckList);
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    ...Styles.cardContainer,
+    height: 128,
+    marginVertical: 5,
+    marginHorizontal: 15,
+  },
+  msgContainer: {
+    alignItems: 'center',
+  },
+  emptyListMsg: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+});

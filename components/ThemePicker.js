@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   Platform,
-  StyleSheet,
-  Dimensions,
   View,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTheme } from '../actions/settings';
@@ -15,6 +15,13 @@ import Themes from '../styles/themes';
 import Styles from '../styles/stylesheet';
 import { white } from '../styles/palette';
 
+const themes = JSON.parse(JSON.stringify(Themes));
+for (let k in themes) {
+  themes[k].key = k;
+}
+
+const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
+
 export default function ThemePicker() {
   const currentTheme = useSelector(({ settings }) => settings.theme);
   const dispatch = useDispatch();
@@ -23,25 +30,6 @@ export default function ThemePicker() {
     setThemeAsync(theme);
     dispatch(setTheme(theme));
   }
-
-  const themes = JSON.parse(JSON.stringify(Themes));
-  for (let k in themes) {
-    themes[k].key = k;
-  }
-
-  const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
-
-  const size = Dimensions.get('window').width * 0.45;
-  const styles = StyleSheet.create({
-    btn: {
-      height: size,
-      width: size,
-      margin: 5,
-      borderRadius: 5,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }
-  });
 
   return (
     <View style={Styles.container}>
@@ -66,3 +54,16 @@ export default function ThemePicker() {
     </View>
   );
 }
+
+const size = Dimensions.get('window').width * 0.45;
+
+const styles = StyleSheet.create({
+  btn: {
+    height: size,
+    width: size,
+    margin: 5,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});

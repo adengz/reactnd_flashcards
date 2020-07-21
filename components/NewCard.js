@@ -1,10 +1,10 @@
 import React, { useState }  from 'react';
 import {
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
   Text,
-  TextInput
+  TextInput,
+  StyleSheet
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -32,14 +32,6 @@ export default function NewCard() {
     navigation.goBack();
   }
 
-  const styles = StyleSheet.create({
-    label: {
-      fontSize: 25,
-      alignSelf: 'flex-start',
-      marginLeft: 15,
-    },
-  });
-
   return (
     <KeyboardAvoidingView 
       style={Styles.container}
@@ -64,3 +56,11 @@ export default function NewCard() {
     </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 25,
+    alignSelf: 'flex-start',
+    marginLeft: 15,
+  },
+});

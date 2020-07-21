@@ -1,19 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { CircularProgress } from 'react-native-svg-circular-progress';
 import { green, lightGray } from '../styles/palette';
 
 export default function Donut({ percent }) {
   const { background } = useTheme().colors;
-  const styles = StyleSheet.create({
-    container: {
-      margin: 40,
-    },
-    label: {
-      fontSize: 50,
-    },
-  });
 
   return (
     <View style={styles.container}>
@@ -32,3 +24,12 @@ export default function Donut({ percent }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 40,
+  },
+  label: {
+    fontSize: 50,
+  },
+});

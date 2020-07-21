@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useRoute, useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { deleteDeck } from '../actions/data';
@@ -35,37 +35,22 @@ export default function Deck() {
   }
 
   const themeColor = useTheme().colors.primary;
-  const styles = StyleSheet.create({
-    cover: {
-      marginBottom: 100,
-    },
-    addBtn: {
-      ...Styles.button,
-      borderColor: themeColor,
-    },
-    addBtnText: {
-      ...Styles.buttonText,
-      color: black,
-    },
-    quizBtn: {
-      ...Styles.button,
-      borderColor: themeColor,
-      backgroundColor: themeColor,
-    },
-  });
 
   return (
     <View style={Styles.container}>
       <DeckCover style={styles.cover} id={id} scale={2} />
       <View style={Styles.buttonGroup}>
         <TouchableOpacity
-          style={styles.addBtn}
+          style={[Styles.button, { borderColor: themeColor }]}
           onPress={() => navigation.navigate('NewCard', { id })}
         >
           <Text style={styles.addBtnText}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.quizBtn}
+          style={[
+            Styles.button,
+            { borderColor: themeColor, backgroundColor: themeColor }
+          ]}
           onPress={() => navigation.navigate('Quiz', { id })}
         >
           <Text style={Styles.buttonText}>Start Quiz</Text>
@@ -75,3 +60,13 @@ export default function Deck() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cover: {
+    marginBottom: 100,
+  },
+  addBtnText: {
+    ...Styles.buttonText,
+    color: black,
+  },
+});

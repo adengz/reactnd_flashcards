@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { SettingsScreen, SettingsData } from 'react-native-settings-screen';
+import { SettingsData, SettingsScreen } from 'react-native-settings-screen';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
 import { createTwoButtonnAlert } from '../utils/alerts';
@@ -15,7 +15,7 @@ export default function Settings() {
 
   const preResetData = () => (
     createTwoButtonnAlert({
-      title: 'Clear data',
+      title: 'CLEAR DATA',
       msg: 'Are you sure you want to clear all data?' + 
         '\nThis operation cannot be undone.',
       confirmText: 'Confirm',
@@ -28,15 +28,6 @@ export default function Settings() {
     dispatch(clearData());
   }
 
-  const styles = StyleSheet.create({
-    colorPad: {
-      width: 30,
-      height: 30,
-      backgroundColor: themeColor,
-      borderRadius: 5,
-    },
-  });
-
   const data: SettingsData = [
     {
       type: 'SECTION',
@@ -44,7 +35,9 @@ export default function Settings() {
       rows: [
         {
           title: 'Theme',
-          renderAccessory: () => <View style={styles.colorPad}/>,
+          renderAccessory: () => (
+            <View style={[styles.colorPad, { backgroundColor: themeColor }]} />
+          ),
           showDisclosureIndicator: true,
           onPress: () => navigation.navigate('ThemePicker'),
         },
@@ -69,3 +62,11 @@ export default function Settings() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  colorPad: {
+    width: 30,
+    height: 30,
+    borderRadius: 5,
+  },
+});
