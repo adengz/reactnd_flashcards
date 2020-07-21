@@ -7,7 +7,6 @@ import Deck from '../components/Deck';
 import NewCard from '../components/NewCard';
 import Quiz from '../components/Quiz';
 import ThemePicker from '../components/ThemePicker';
-import ReminderSetter from '../components/ReminderSetter';
 import Themes from '../styles/themes';
 
 export default function StackNavigator() {
@@ -38,11 +37,6 @@ export default function StackNavigator() {
       name: 'ThemePicker',
       component: ThemePicker,
       options: { title: 'Pick a theme' }
-    },
-    ReminderSetter: {
-      name: 'ReminderSetter',
-      component: ReminderSetter,
-      options: { title: 'Quiz Reminder' }
     },
   };
 

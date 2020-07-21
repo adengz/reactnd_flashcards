@@ -52,18 +52,6 @@ export default function Settings() {
     },
     {
       type: 'SECTION',
-      header: 'Notifications',
-      rows: [
-        {
-          title: 'Daily quiz reminder',
-          subtitle: 'Reminds you to take at least a quiz everyday',
-          showDisclosureIndicator: true,
-          onPress: () => navigation.navigate('ReminderSetter'),
-        },
-      ],
-    },
-    {
-      type: 'SECTION',
       header: 'Danger Zone',
       rows: [
         {
