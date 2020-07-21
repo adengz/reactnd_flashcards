@@ -55,7 +55,11 @@ export default function Deck() {
         >
           <Text style={Styles.buttonText}>Start Quiz</Text>
         </TouchableOpacity>
-        <TextBtn text="DELETE DECK" color={red} onPress={preRemove}/>
+        <TextBtn
+          style={{ color: red }}
+          text="DELETE DECK"
+          onPress={preRemove}
+        />
       </View>
     </View>
   );
