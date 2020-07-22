@@ -10,7 +10,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addCard } from '../actions/data';
 import { addCardAsync } from '../utils/data';
-import SubmitBtn from './SubmitBtn';
+import { ThemedTouchableOpacityDark } from './Themed';
 import Styles from '../styles/stylesheet';
 
 export default function NewCard() {
@@ -49,7 +49,8 @@ export default function NewCard() {
         onChangeText={answer => setAnswer(answer)}
         value={answer}
       />
-      <SubmitBtn
+      <ThemedTouchableOpacityDark
+        text="Submit"
         onPress={submit}
         disabled={(question === '') || (answer === '')}
       />

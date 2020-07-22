@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addDeck } from '../actions/data';
 import { addDeckAsync } from '../utils/data';
-import SubmitBtn from './SubmitBtn';
+import { ThemedTouchableOpacityDark } from './Themed';
 import Styles from '../styles/stylesheet';
 
 export default function NewDeck() {
@@ -44,7 +44,11 @@ export default function NewDeck() {
         onChangeText={title => setTitle(title)}
         value={title}
       />
-      <SubmitBtn onPress={submit} disabled={title === ''} />
+      <ThemedTouchableOpacityDark
+        text="Submit"
+        onPress={submit}
+        disabled={title === ''}
+      />
     </KeyboardAvoidingView>
   );
 }

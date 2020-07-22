@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import CardFlip from 'react-native-card-flip';
 import DonutChart from './DonutChart';
+import { ThemedTouchableOpacityLight, ThemedTouchableOpacityDark } from './Themed';
 import TextBtn from './TextBtn';
 import Styles from '../styles/stylesheet';
-import { black, green, red, colorMap } from '../styles/palette';
+import { colorMap, green, red } from '../styles/palette';
 
 const Result = ({ right, count, startOver }) => {
 
   const percent = Math.round(right / count * 100);
   const navigation = useNavigation();
-
-  const themeColor = useTheme().colors.primary;
 
   return (
     <View style={Styles.container}>
@@ -21,27 +20,27 @@ const Result = ({ right, count, startOver }) => {
       <Text style={styles.stats}>{right} / {count} correct</Text>
       <DonutChart percent={percent} />
       <View style={Styles.buttonGroup}>
-        <TouchableOpacity
-          style={[Styles.button, { borderColor: themeColor }]}
+        <ThemedTouchableOpacityLight
+          text="Back to Deck"
           onPress={() => navigation.goBack()}
-        >
-          <Text style={[Styles.buttonText, { color: black }]}>
-            Back to Deck
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            Styles.button,
-            { borderColor: themeColor, backgroundColor: themeColor }
-          ]}
+        />
+        <ThemedTouchableOpacityDark
+          text="Start Over"
           onPress={startOver}
-        >
-          <Text style={Styles.buttonText}>Start Over</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
 }
+
+const ColoredTouchableOpacity = ({ color, text, onPress }) => (
+  <TouchableOpacity
+    style={[Styles.button, { backgroundColor: color }]}
+    onPress={onPress}
+  >
+    <Text style={Styles.buttonText}>{text}</Text>
+  </TouchableOpacity>
+);
 
 class Quiz extends Component {
   constructor(props) {
@@ -122,18 +121,16 @@ class Quiz extends Component {
             text={`Show ${showAnswer ? 'Question' : 'Answer'}`}
             onPress={this.flipCard}
           />
-          <TouchableOpacity
-            style={styles.rightBtn}
+          <ColoredTouchableOpacity
+            color={green}
+            text="Correct"
             onPress={() => this.showNext(true)}
-          >
-            <Text style={Styles.buttonText}>Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.wrongBtn}
+          />
+          <ColoredTouchableOpacity
+            color={red}
+            text="Incorrect"
             onPress={() => this.showNext(false)}
-          >
-            <Text style={Styles.buttonText}>Incorrect</Text>
-          </TouchableOpacity>
+          />
         </View>
       </View>
     );
@@ -152,14 +149,6 @@ const styles = StyleSheet.create({
   stats: {
     fontSize: 24,
     textAlign: 'center',
-  },
-  rightBtn: {
-    ...Styles.button,
-    backgroundColor: green,
-  },
-  wrongBtn: {
-    ...Styles.button,
-    backgroundColor: red,
   },
   cardContainer: {
     ...Styles.cardContainer,

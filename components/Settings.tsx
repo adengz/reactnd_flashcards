@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { SettingsData, SettingsScreen } from 'react-native-settings-screen';
 import { clearData } from '../actions/data';
 import { resetDataAsync } from '../utils/data';
 import { createTwoButtonnAlert } from '../utils/alerts';
+import { ThemeColorPad } from './Themed';
 import Styles from '../styles/stylesheet';
 
 export default function Settings() {
   const navigation = useNavigation();
-  const themeColor = useTheme().colors.primary;
   const dispatch = useDispatch();
 
   const preResetData = () => (
@@ -35,9 +35,7 @@ export default function Settings() {
       rows: [
         {
           title: 'Theme',
-          renderAccessory: () => (
-            <View style={[styles.colorPad, { backgroundColor: themeColor }]} />
-          ),
+          renderAccessory: () => <ThemeColorPad />,
           showDisclosureIndicator: true,
           onPress: () => navigation.navigate('ThemePicker'),
         },
@@ -62,11 +60,3 @@ export default function Settings() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  colorPad: {
-    width: 30,
-    height: 30,
-    borderRadius: 5,
-  },
-});
