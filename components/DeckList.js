@@ -1,47 +1,13 @@
 import React, { Component } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { AppLoading } from 'expo';
-import { receiveSettings } from '../actions/settings';
-import { fetchSettingsAsync, initiateSettingsAsync } from '../utils/settings';
-import { receiveData } from '../actions/data';
-import { fetchDataAsync, resetDataAsync } from '../utils/data';
 import CardFlip from 'react-native-card-flip';
 import DeckCover from './DeckCover';
 import Styles from '../styles/stylesheet';
 import { colorMap } from '../styles/palette';
 
 class DeckList extends Component {
-  state = { ready: false };
-
-  componentDidMount() {
-    const { settings, dispatch } = this.props;
-
-    fetchSettingsAsync()
-      .then((cachedSettings) => {
-        if (cachedSettings === null) {
-          initiateSettingsAsync(settings);
-        } else {
-          dispatch(receiveSettings(cachedSettings));
-        }
-      });
-
-    fetchDataAsync()
-      .then((cachedData) => {
-        if (cachedData === null) {
-          resetDataAsync();
-          cachedData = {};
-        }
-        dispatch(receiveData(cachedData));
-      })
-      .then(() => this.setState({ ready: true }));
-  }
-
   render() {
-    if (!this.state.ready) {
-      return <AppLoading />;
-    }
-
     const { data } = this.props;
 
     return (
@@ -82,7 +48,7 @@ class DeckList extends Component {
   }
 }
 
-const mapStateToProps = ({ settings, data }) => ({ settings, data });
+const mapStateToProps = ({ data }) => ({ data });
 
 export default connect(mapStateToProps)(DeckList);
 
