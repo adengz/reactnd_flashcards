@@ -37,7 +37,7 @@ class DeckList extends Component {
             </CardFlip>
           )}
           ListEmptyComponent={
-            <View style={styles.msgContainer}>
+            <View>
               <Text style={styles.emptyListMsg}>You don't have any decks now.</Text>
               <Text style={styles.emptyListMsg}>Create one and it will show up here.</Text>
             </View>
@@ -59,11 +59,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginHorizontal: 15,
   },
-  msgContainer: {
-    alignItems: 'center',
-  },
   emptyListMsg: {
-    fontSize: 15,
+    fontSize: 18,
     textAlign: 'center',
   },
 });

@@ -1,11 +1,5 @@
 import React, { useState }  from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TextInput,
-  StyleSheet
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addCard } from '../actions/data';
@@ -37,17 +31,17 @@ export default function NewCard() {
       style={Styles.container}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <Text style={styles.label}>Question</Text>
       <TextInput
         style={Styles.textInput}
         onChangeText={question => setQuestion(question)}
         value={question}
+        placeholder="question"
       />
-      <Text style={styles.label}>Answer</Text>
       <TextInput
         style={Styles.textInput}
         onChangeText={answer => setAnswer(answer)}
         value={answer}
+        placeholder="answer"
       />
       <ThemedTouchableOpacityDark
         text="Submit"
@@ -57,11 +51,3 @@ export default function NewCard() {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 25,
-    alignSelf: 'flex-start',
-    marginLeft: 15,
-  },
-});

@@ -52,11 +52,6 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  menuValue: {
-    color: gray,
-    marginRight: 6,
-    fontSize: 18,
-  },
   menuDangerTitle: {
     color: red,
     fontWeight: 'bold',
