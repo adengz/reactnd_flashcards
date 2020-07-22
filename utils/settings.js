@@ -22,19 +22,3 @@ export const setThemeAsync = (theme) => {
       return updateSettingsAsync(settings);
     });
 }
-
-export const toggleRemiderAsync = () => {
-  return fetchSettingsAsync()
-    .then((settings) => {
-      settings.dailyReminder = !settings.dailyReminder;
-      return updateSettingsAsync(settings);
-    });
-}
-
-export const setReminderTimeAsync = (hh, mm) => {
-  return fetchSettingsAsync()
-    .then((settings) => {
-      settings.reminderTime = { hh, mm };
-      return updateSettingsAsync(settings);
-    });
-}

@@ -6,17 +6,17 @@ const lightColors = {
 };
 
 export default Themes = {
-  Triton: {
-    dark: false,
-    colors: {
-      primary: '#006A96',
-      ...lightColors
-    }
-  },
   THU: {
     dark: false,
     colors: {
       primary: '#660874',
+      ...lightColors
+    }
+  },
+  Triton: {
+    dark: false,
+    colors: {
+      primary: '#006A96',
       ...lightColors
     }
   },
