@@ -1,5 +1,5 @@
 # Flash⚡Cards
-A simple yet elegant, cross-platform flashcard mobile app built with React Native.
+A simple yet elegant, cross-platform flashcard mobile app built with React Native. The third project from Udacity's React Nanodegree.
 
 ## Getting started
 First, clone this repository, and install all the dependencies.
@@ -9,7 +9,7 @@ cd reactnd_flashcards
 yarn install
 ```
 
-Then, start the development server at http://localhost:19002/
+Then, start the development server at http://localhost:19002/.
 ```
 yarn start
 ```
@@ -21,4 +21,3 @@ This app has been tested on
 
 ## Notable UX issues
 * After creating a new deck, the app will navigate to the front page. From there if navigating back, you will end up at the deck creation view, instead of the real home page, deck list view. A solution to potentially solve this is to implement a prompt input instead of a view when creating the new deck.
-* The local notification functionality is broken (at least not testable with all the available resources of developer), though the implement logic should be correct. Will be removed eventually.
